@@ -27,7 +27,7 @@ The following features will be included:
 
 ## How it Works
 
-1. Create an account.
+1. Create an account
 2. Update your profile
 3. Add your roommate preferences
 4. Find the perfect roommate!
@@ -41,8 +41,6 @@ Built with:
 - Django - web framework
 - Vagrant - development environment
 - Flake 8 - CI, coding style enforcement
-
-The project runs on Vagrant VM with Fedora and uses Django as a web framework.
 
 
 
