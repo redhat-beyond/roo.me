@@ -1,0 +1,16 @@
+name: Flake8
+on: pull_request
+jobs:
+    flake8:
+        name: Check code with Flake8
+        runs-on: ubuntu-20.04
+        container: fedora:32
+        steps:
+            - name: Install pipenv and Git
+              run: dnf install -y pipenv git
+            - name: Checkout code
+              uses: actions/checkout@v2
+            - name: Setup environment
+              run: pipenv sync --dev
+            - name: Run Flake8
+              run: pipenv run flake8 --max-line-length 120
