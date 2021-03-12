@@ -133,3 +133,6 @@ dmypy.json
 
 # Nohup logfile
 nohup.out
+
+#macOS files
+.DS_Store
