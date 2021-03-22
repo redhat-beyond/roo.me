@@ -7,7 +7,6 @@ It works by showing users the best possible matches based on their profile infor
 roo.me is currently under development.
 
 
-
 ## Motivation
 
 Finding a roommate could be a long, tedious task. roo.me is here to make this task easy for you by matching roommates based on interests.
