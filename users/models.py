@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import (AbstractBaseUser,
                                         PermissionsMixin,
                                         BaseUserManager)
+from roo_me.settings import AUTH_USER_MODEL
 
 
 class UserManager(BaseUserManager):
@@ -68,3 +69,27 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+
+class City(models.Model):
+    cityName = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.cityName
+
+
+class Apartment(models.Model):
+    owner = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='owner_apartments')
+    datePosted = models.DateTimeField(default=timezone.now, blank=True)
+    city = models.ForeignKey(City, on_delete=models.RESTRICT, related_name='city_apartments')
+    address = models.TextField()
+    rentPricePerMonth = models.IntegerField()
+    numOfRoomates = models.IntegerField()
+    numOfRooms = models.IntegerField()
+    startDate = models.DateField()
+    content = models.TextField(blank=True)
+    isRelevant = models.BooleanField(default=True, blank=True)
+    # img = models.ImageField(default='default.jpg', upload_to='aprt_pics')
+
+    def __str__(self):
+        return f"Owner:{self.owner}, Addres:{self.address}, City:{self.city}"
