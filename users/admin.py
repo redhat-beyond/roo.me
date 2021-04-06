@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import User
+from .models import User, Apartment, City
 from django.contrib.auth.admin import UserAdmin
 
 
+@admin.register(User)
 class UserAdminConfig(UserAdmin):
     ordering = ('date_joined',)
     list_display = ('email', 'first_name', 'last_name',
@@ -26,4 +27,12 @@ class UserAdminConfig(UserAdmin):
     )
 
 
-admin.site.register(User, UserAdminConfig)
+@admin.register(Apartment)
+class ApartmentAdminConfig(admin.ModelAdmin):
+    list_display = ('owner', 'datePosted', 'city', 'address', 'rentPricePerMonth',
+                    'numOfRoomates', 'numOfRooms', 'startDate')
+
+
+@admin.register(City)
+class CityAdminConfig(admin.ModelAdmin):
+    pass
