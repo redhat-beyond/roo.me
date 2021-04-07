@@ -6,12 +6,12 @@ from django.contrib.auth.admin import UserAdmin
 @admin.register(User)
 class UserAdminConfig(UserAdmin):
     ordering = ('date_joined',)
-    list_display = ('email', 'first_name', 'last_name',
+    list_display = ('email', 'first_name', 'last_name', 'user_type',
                     'is_staff', 'is_superuser', 'is_active',)
 
     fieldsets = (
         ('Overview', {'fields': ('email', 'first_name', 'last_name',
-                                 'birth_date', 'date_joined',
+                                 'birth_date', 'date_joined', 'user_type',
                                  'is_active',)}),
         ('Permissions', {'fields': ('is_staff', 'is_superuser',)}),
     )
@@ -20,7 +20,7 @@ class UserAdminConfig(UserAdmin):
         (None, {
             'classes': ('wide',),
             'fields': ('email', 'password1', 'password2',
-                       'first_name', 'last_name', 'birth_date',
+                       'first_name', 'last_name', 'birth_date', 'user_type',
                        'is_staff', 'is_active',
                        'is_superuser',),
         }),

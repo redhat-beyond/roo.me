@@ -9,7 +9,7 @@ from roo_me.settings import AUTH_USER_MODEL
 class UserManager(BaseUserManager):
 
     def create_user(self, email, first_name,
-                    last_name, birth_date, password, user_type,
+                    last_name, birth_date, password,
                     **other_fields):
 
         if not email:
@@ -23,13 +23,10 @@ class UserManager(BaseUserManager):
 
         if not birth_date:
             raise ValueError('You must provide a birth date')
-        
-        if not user_type:
-            raise ValueError('You must provide an Owner / Seeker type')
 
         email = self.normalize_email(email)
         user = self.model(email=email, first_name=first_name,
-                          last_name=last_name, birth_date=birth_date, user_type=user_type,
+                          last_name=last_name, birth_date=birth_date,
                           **other_fields)
         user.set_password(password)
         user.save()
