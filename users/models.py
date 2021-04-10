@@ -50,6 +50,13 @@ class UserManager(BaseUserManager):
                                 **other_fields)
 
 
+class Hobby(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 class User(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(unique=True)
@@ -60,6 +67,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
+    hobbies = models.ManyToManyField(Hobby)
 
     objects = UserManager()
 

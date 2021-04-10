@@ -136,3 +136,6 @@ nohup.out
 
 # idea
 .idea/
+
+# macOS files
+.DS_Store

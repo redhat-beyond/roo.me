@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Apartment, City
+from .models import User, Apartment, City, Hobby
 from django.contrib.auth.admin import UserAdmin
 
 
@@ -12,7 +12,7 @@ class UserAdminConfig(UserAdmin):
     fieldsets = (
         ('Overview', {'fields': ('email', 'first_name', 'last_name',
                                  'birth_date', 'date_joined',
-                                 'is_active',)}),
+                                 'is_active', 'hobbies')}),
         ('Permissions', {'fields': ('is_staff', 'is_superuser',)}),
     )
 
@@ -22,7 +22,7 @@ class UserAdminConfig(UserAdmin):
             'fields': ('email', 'password1', 'password2',
                        'first_name', 'last_name', 'birth_date',
                        'is_staff', 'is_active',
-                       'is_superuser',),
+                       'is_superuser', 'hobbies'),
         }),
     )
 
@@ -36,3 +36,8 @@ class ApartmentAdminConfig(admin.ModelAdmin):
 @admin.register(City)
 class CityAdminConfig(admin.ModelAdmin):
     pass
+
+
+@admin.register(Hobby)
+class HobbyAdminConfig(admin.ModelAdmin):
+    list_display = ('name',)
