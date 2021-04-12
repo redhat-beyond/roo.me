@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Apartment, City, Hobby
+from .models import User, Apartment, City, Hobby, Seeker
 from django.contrib.auth.admin import UserAdmin
 
 
@@ -49,3 +49,9 @@ class CityAdminConfig(admin.ModelAdmin):
 @admin.register(Hobby)
 class HobbyAdminConfig(admin.ModelAdmin):
     list_display = ('name',)
+
+
+@admin.register(Seeker)
+class SeekerAdminConfig(admin.ModelAdmin):
+    list_display = ('base_user', 'city', 'start_date', 'min_rent', 'max_rent',
+                    'num_of_roomates', 'num_of_rooms', 'about')
