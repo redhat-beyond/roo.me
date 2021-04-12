@@ -69,6 +69,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     hobbies = models.ManyToManyField(Hobby)
 
+    not_smoking = models.BooleanField(default=False, blank=True)
+    pets_allowed = models.BooleanField(default=False, blank=True)
+    air_conditioner = models.BooleanField(default=False, blank=True)
+    balcony = models.BooleanField(default=False, blank=True)
+    elevator = models.BooleanField(default=False, blank=True)
+    long_term = models.BooleanField(default=False, blank=True)
+    immediate_entry = models.BooleanField(default=False, blank=True)
+
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
