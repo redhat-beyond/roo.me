@@ -10,6 +10,9 @@ cd /vagrant
 # Install dependencies with Pipenv
 pipenv sync --dev
 
+# Making the migrations
+pipenv run python manage.py makemigrations
+
 # Run database migrations
 pipenv run python manage.py migrate
 
