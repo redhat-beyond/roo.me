@@ -73,7 +73,6 @@ Once installed, clone this project to your local machine, navigate to the projec
 - Daniel Malky
 - Nadav Suliman
 - Micha Levy
-- Alon Ben Harosh
 
 
 
