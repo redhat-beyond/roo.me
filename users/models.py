@@ -109,3 +109,17 @@ class Apartment(models.Model):
 
     def __str__(self):
         return f"Owner:{self.owner}, Addres:{self.address}, City:{self.city}"
+
+
+class Seeker(models.Model):
+    base_user = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
+    city = models.ForeignKey(City, on_delete=models.RESTRICT, related_name='city_seekers')
+    start_date = models.DateField()
+    min_rent = models.IntegerField()
+    max_rent = models.IntegerField()
+    num_of_roomates = models.IntegerField()
+    num_of_rooms = models.IntegerField()
+    about = models.TextField(blank=True, max_length=300)
+
+    def __str__(self):
+        return f"Seeker:{self.base_user}"
