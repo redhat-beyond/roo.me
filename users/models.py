@@ -95,17 +95,17 @@ class City(models.Model):
 
 
 class Apartment(models.Model):
-    owner = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='owner_apartments')
-    datePosted = models.DateTimeField(default=timezone.now, blank=True)
+    owner = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    date_posted = models.DateTimeField(default=timezone.now, blank=True)
     city = models.ForeignKey(City, on_delete=models.RESTRICT, related_name='city_apartments')
     address = models.TextField()
-    rentPricePerMonth = models.IntegerField()
-    numOfRoomates = models.IntegerField()
-    numOfRooms = models.IntegerField()
-    startDate = models.DateField()
-    content = models.TextField(blank=True)
-    isRelevant = models.BooleanField(default=True, blank=True)
-    # img = models.ImageField(default='default.jpg', upload_to='aprt_pics')
+    rent = models.IntegerField()
+    num_of_roomates = models.IntegerField()
+    num_of_rooms = models.IntegerField()
+    start_date = models.DateField()
+    about = models.TextField(blank=True)
+    is_relevant = models.BooleanField(default=True, blank=True)
+    image_url = models.TextField(blank=True)
 
     def __str__(self):
         return f"Owner:{self.owner}, Addres:{self.address}, City:{self.city}"
@@ -119,7 +119,7 @@ class Seeker(models.Model):
     max_rent = models.IntegerField()
     num_of_roomates = models.IntegerField()
     num_of_rooms = models.IntegerField()
-    about = models.TextField(blank=True, max_length=300)
+    about = models.TextField(blank=True)
 
     def __str__(self):
         return f"Seeker:{self.base_user}"

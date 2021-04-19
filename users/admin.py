@@ -37,8 +37,8 @@ class UserAdminConfig(UserAdmin):
 
 @admin.register(Apartment)
 class ApartmentAdminConfig(admin.ModelAdmin):
-    list_display = ('owner', 'datePosted', 'city', 'address', 'rentPricePerMonth',
-                    'numOfRoomates', 'numOfRooms', 'startDate')
+    list_display = ('owner', 'date_posted', 'city', 'address', 'rent',
+                    'num_of_roomates', 'num_of_rooms', 'start_date',)
 
 
 @admin.register(City)
