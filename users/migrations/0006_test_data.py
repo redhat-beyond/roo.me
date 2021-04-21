@@ -8,6 +8,7 @@ class Migration(migrations.Migration):
         ('users', '0002_auto_20210405_1458'),
         ('users', '0003_auto_20210410_1120'),
         ('users', '0004_auto_20210418_0854'),
+        ('users', '0005_auto_20210419_0824'),
     ]
 
     def generate_hobby_data(apps, schema_editor):
@@ -53,10 +54,10 @@ class Migration(migrations.Migration):
                     owner=User.objects.all()[index],
                     city=currcity,
                     address=addr,
-                    rentPricePerMonth=rent,
-                    numOfRoomates=roomates,
-                    numOfRooms=rooms,
-                    startDate=sdate).save()
+                    rent=rent,
+                    num_of_roomates=roomates,
+                    num_of_rooms=rooms,
+                    start_date=sdate).save()
                 index = index+1
 
     def generate_seeker_data(apps, schema_editor):
