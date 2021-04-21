@@ -1,8 +1,7 @@
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
+                                        PermissionsMixin)
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import (AbstractBaseUser,
-                                        PermissionsMixin,
-                                        BaseUserManager)
 from roo_me.settings import AUTH_USER_MODEL
 
 
@@ -87,33 +86,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
-class City(models.Model):
-    cityName = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.cityName
-
-
-class Apartment(models.Model):
-    owner = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE)
-    date_posted = models.DateTimeField(default=timezone.now, blank=True)
-    city = models.ForeignKey(City, on_delete=models.RESTRICT, related_name='city_apartments')
-    address = models.TextField()
-    rent = models.IntegerField()
-    num_of_roomates = models.IntegerField()
-    num_of_rooms = models.IntegerField()
-    start_date = models.DateField()
-    about = models.TextField(blank=True)
-    is_relevant = models.BooleanField(default=True, blank=True)
-    image_url = models.TextField(blank=True)
-
-    def __str__(self):
-        return f"Owner:{self.owner}, Addres:{self.address}, City:{self.city}"
-
-
 class Seeker(models.Model):
     base_user = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
-    city = models.ForeignKey(City, on_delete=models.RESTRICT, related_name='city_seekers')
+    city = models.ForeignKey('apartments.City', on_delete=models.RESTRICT, related_name='city_seekers')
     start_date = models.DateField()
     min_rent = models.IntegerField()
     max_rent = models.IntegerField()
