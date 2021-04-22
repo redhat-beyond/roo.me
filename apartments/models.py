@@ -25,3 +25,7 @@ class Apartment(models.Model):
 
     def __str__(self):
         return f"Owner:{self.owner}, Addres:{self.address}, City:{self.city}"
+
+    @classmethod
+    def get_relevant_apartments_by_date(cls):
+        return cls.objects.filter(is_relevant=True).order_by('-date_posted')
