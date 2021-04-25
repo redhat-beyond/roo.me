@@ -1,0 +1,16 @@
+name: PyTest
+on: pull_request
+jobs:
+  pytest:
+    name: Run the application's tests with PyTest
+    runs-on: ubuntu-20.04
+    container: fedora:32
+    steps:
+      - name: Install Pipenv and git
+        run: dnf install -y pipenv git
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup environment
+        run: pipenv sync --dev
+      - name: Run PyTest
+        run: pipenv run pytest -v
