@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'contacts.apps.ContactsConfig',
     'apartments.apps.ApartmentsConfig',
+    'seekers.apps.SeekersConfig',
 ]
 
 MIDDLEWARE = [
