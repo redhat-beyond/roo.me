@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import date
-from users.models import Apartment, Seeker
+from users.models import Seeker
+from apartments.models import Apartment
 
 
 class Connection(models.Model):
