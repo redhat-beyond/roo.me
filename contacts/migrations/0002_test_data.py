@@ -1,5 +1,6 @@
 from django.db import migrations, transaction
-from users.models import Apartment, Seeker
+from users.models import Seeker
+from apartments.models import Apartment
 from contacts.models import Connection
 
 
