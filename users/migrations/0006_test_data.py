@@ -1,5 +1,6 @@
 from django.db import migrations, transaction
-from users.models import User, Apartment, Seeker, City, Hobby
+from users.models import User, Seeker, Hobby
+from apartments.models import Apartment, City
 
 
 class Migration(migrations.Migration):
@@ -9,6 +10,7 @@ class Migration(migrations.Migration):
         ('users', '0003_auto_20210410_1120'),
         ('users', '0004_auto_20210418_0854'),
         ('users', '0005_auto_20210419_0824'),
+        ('users', '0007_auto_20210422_0618'),
     ]
 
     def generate_hobby_data(apps, schema_editor):
