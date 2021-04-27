@@ -86,6 +86,20 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
+    @property
+    def is_seeker(self):
+        try:
+            return self.seeker is not None
+        except AttributeError:
+            return False
+
+    @property
+    def is_owner(self):
+        try:
+            return self.apartment is not None
+        except AttributeError:
+            return False
+
 
 class Seeker(models.Model):
     base_user = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
