@@ -1,12 +1,10 @@
 from django.db import models
 from datetime import date
-from users.models import Seeker
-from apartments.models import Apartment
 
 
 class Connection(models.Model):
-    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE, related_name='apt_connection')
-    seeker = models.ForeignKey(Seeker, on_delete=models.CASCADE, related_name='seeker_connection')
+    apartment = models.ForeignKey('apartments.Apartment', on_delete=models.CASCADE, related_name='apt_connection')
+    seeker = models.ForeignKey('seekers.Seeker', on_delete=models.CASCADE, related_name='seeker_connection')
     date_created = models.DateField(default=date.today)
 
     def __str__(self):

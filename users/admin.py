@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import User, Hobby, Seeker
+from .models import User, Hobby
+from seekers.models import Seeker
 from apartments.models import Apartment, City
 from django.contrib.auth.admin import UserAdmin
 

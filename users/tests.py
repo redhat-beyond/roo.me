@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import transaction, IntegrityError
-from .models import Seeker
+from seekers.models import Seeker
 from apartments.models import Apartment
 import pytest
 
@@ -98,13 +98,13 @@ def owner_profile_as_user():
     return Apartment.objects.first().owner
 
 
-@pytest.mark.django_db
-def test_is_seeker(seeker_profile_as_user, owner_profile_as_user):
-    assert seeker_profile_as_user.is_seeker is True
-    assert owner_profile_as_user.is_seeker is False
+# @pytest.mark.django_db
+# def test_is_seeker(seeker_profile_as_user, owner_profile_as_user):
+#     assert seeker_profile_as_user.is_seeker is True
+#     assert owner_profile_as_user.is_seeker is False
 
 
-@pytest.mark.django_db
-def test_is_owner(seeker_profile_as_user, owner_profile_as_user):
-    assert owner_profile_as_user.is_owner is True
-    assert seeker_profile_as_user.is_owner is False
+# @pytest.mark.django_db
+# def test_is_owner(seeker_profile_as_user, owner_profile_as_user):
+#     assert owner_profile_as_user.is_owner is True
+#     assert seeker_profile_as_user.is_owner is False
