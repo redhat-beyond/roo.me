@@ -99,16 +99,16 @@ def owner_profile_as_user():
     return Apartment.objects.first().owner
 
 
-# @pytest.mark.django_db
-# def test_is_seeker(seeker_profile_as_user, owner_profile_as_user):
-#     assert seeker_profile_as_user.is_seeker is True
-#     assert owner_profile_as_user.is_seeker is False
+@pytest.mark.django_db
+def test_is_seeker(seeker_profile_as_user, owner_profile_as_user):
+    assert seeker_profile_as_user.is_seeker
+    assert not owner_profile_as_user.is_seeker
 
 
-# @pytest.mark.django_db
-# def test_is_owner(seeker_profile_as_user, owner_profile_as_user):
-#     assert owner_profile_as_user.is_owner is True
-#     assert seeker_profile_as_user.is_owner is False
+@pytest.mark.django_db
+def test_is_owner(seeker_profile_as_user, owner_profile_as_user):
+    assert owner_profile_as_user.is_owner
+    assert not seeker_profile_as_user.is_owner
 
 
 @pytest.mark.parametrize(
