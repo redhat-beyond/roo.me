@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'contacts.apps.ContactsConfig',
     'apartments.apps.ApartmentsConfig',
     'seekers.apps.SeekersConfig',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +125,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'users.User'
+LOGIN_REDIRECT_URL = 'home'
