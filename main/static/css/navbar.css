@@ -1,0 +1,23 @@
+body {
+  padding-top: 5rem;
+}
+
+.btn {
+    background-color: #204660;
+    border-color: #204660;
+    -webkit-text-fill-color: #FFFFFF;
+}
+
+.btn:hover {
+    background-color: #204660;
+    border-color: #204660;
+}
+
+.btn:focus {
+    background-color: #204660;
+    border-color: #204660;
+}
+
+#nav-main {
+	background-color: #10d48e;
+}
