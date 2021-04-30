@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .forms import ApartmentDetailsUpdateForm, ApartmentQualitiesUpdateForm
+from users.forms import UserCreationForm
+from .forms import (ApartmentDetailsUpdateForm,
+                    ApartmentQualitiesUpdateForm,
+                    ApartmentCreationForm,)
 
 
 @login_required
@@ -25,3 +28,23 @@ def updateApartment(request):
     }
 
     return render(request, 'apartments/update-apartment.html', context)
+
+
+def register_apartment(request):
+    if request.method == 'POST':
+        user_creation_form = UserCreationForm(request.POST)
+        apartment_creation_form = ApartmentCreationForm(request.POST)
+
+        if apartment_creation_form.is_valid() and user_creation_form.is_valid():
+            new_owner = user_creation_form.save(commit=True)
+            apartment_profile = apartment_creation_form.save(commit=False)
+            apartment_profile.owner = new_owner
+            apartment_profile.save()
+            return redirect('home')
+    else:
+        user_creation_form = UserCreationForm()
+        apartment_creation_form = ApartmentCreationForm()
+    return render(request, 'apartments/apartment_register.html', {
+        "uform": user_creation_form,
+        "aform": apartment_creation_form,
+        })
