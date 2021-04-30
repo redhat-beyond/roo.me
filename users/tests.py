@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.db import transaction, IntegrityError
 from seekers.models import Seeker
 from apartments.models import Apartment
+from .forms import UserCreationForm
 import pytest
 
 
@@ -108,3 +109,34 @@ def owner_profile_as_user():
 # def test_is_owner(seeker_profile_as_user, owner_profile_as_user):
 #     assert owner_profile_as_user.is_owner is True
 #     assert seeker_profile_as_user.is_owner is False
+
+
+@pytest.mark.parametrize(
+    'email, first_name, last_name, birth_date, password1, password2, validity',
+    [
+        ('email@address.com', 'first_name', 'last_name', '1900-1-1', 'password123', 'password123', True),
+        ('', 'first_name', 'last_name', '1900-1-1', 'password123', 'password123', False),
+        ('email@address.com', '', 'last_name', '1900-1-1', 'password123', 'password123', False),
+        ('email@address.com', 'first_name', '', '1900-1-1', 'password123', 'password123', False),
+        ('email@address.com', 'first_name', 'last_name', '', 'password123', 'password123', False),
+        ('email@address.com', 'first_name', 'last_name', '1900-1-1', '', 'password123', False),
+        ('email@address.com', 'first_name', 'last_name', '1900-1-1', 'password123', '', False),
+        ('email@address.com', 'first_name', 'last_name', '1900-1-1', 'password123', 'password321', False),
+        ('non-valid-email', 'first_name', 'last_name', '1900-1-1', 'password123', 'password123', False),
+        ('email@address.com', 'first_name', 'last_name', '1900-1-1', 'pas344', 'pas344', False),
+        ('email@address.com', 'first_name', 'last_name', '1900-1-1', 'onlycharpass', 'onlycharpass', False),
+        ('email@address.com', 'first_name', 'last_name', '1900-1-1', '123321412422', '123321412422', False),
+        ('email@address.com', 'first_name', 'last_name', '1900-1-1', 'hello321hi', 'hi123hello', False),
+    ])
+@pytest.mark.django_db
+def test_form_validity(email, first_name, last_name, birth_date, password1, password2, validity):
+    form = UserCreationForm(data={
+        'email': email,
+        'first_name': first_name,
+        'last_name': last_name,
+        'birth_date': birth_date,
+        'password1': password1,
+        'password2': password2,
+    })
+
+    assert form.is_valid() is validity
