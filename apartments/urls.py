@@ -1,4 +1,6 @@
-# from django.urls import path
-# from . import views
+from django.urls import path
+from . import views
 
-urlpatterns = []
+urlpatterns = [
+    path('update', views.updateApartment, name='apartment-update'),
+]
