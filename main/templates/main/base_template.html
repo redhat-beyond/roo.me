@@ -14,14 +14,18 @@
 
     <!--NAV BAR-->
     <nav class="navbar fixed-top navbar-expand-md navbar-light" style="background-color: #10d48e;">
-      <a class="navbar-brand" href="home.html">
+      <a class="navbar-brand" href="/">
           <img src="../../static/img/navbar-logo.png" alt="roo.me" id="logo">
       </a>
+      <a href="logout" class="btn align-middle btn-primary ml-auto mr-3 order-lg-last" type="button">Log out</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         {% block navbar %}
           <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                  <a class="nav-link" href="#">Home</a>
+                  <a class="nav-link" href="/">Home</a>
               </li>
               <li class="nav-item">
                   <a class="nav-link" href="#">Connections</a>
@@ -38,14 +42,21 @@
     </nav>
 
     <!--CONTENT-->
-    <main class="container">
-      <div class="content">
-        {% block content %}{% endblock %}
+    <main class="row main-body">
+      <div class="col-md-2">
+        {% block sidebar %}
+        {% endblock %}
+      </div>
+      <div class="col-md-10">
+        {% block content %}
+        {% endblock %}  
       </div>
     </main>
     <!--FOOTER-->
-    <footer>
-      {% block footer %}{% endblock %}
+    <footer class="container">
+      {% block footer %}
+        <p class="float-right"><a href="#">Back to top</a></p>
+      {% endblock %}
     </footer>
   </body>
 </html>
