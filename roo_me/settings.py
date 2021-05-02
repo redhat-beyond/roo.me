@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'apartments.apps.ApartmentsConfig',
     'seekers.apps.SeekersConfig',
     'crispy_forms',
+    'search.apps.SearchConfig',
 ]
 
 MIDDLEWARE = [
