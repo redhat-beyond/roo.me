@@ -116,3 +116,30 @@ def test_multipile_connection(sample_connection, make_seeker, make_user):
     amount = Connection.objects.filter(apartment=sample_connection.apartment).count()
     expected = 2
     assert amount == expected
+
+
+@pytest.mark.django_db
+def test_default_and_get_status_property(sample_connection):
+    assert sample_connection.get_status == 'Pending'
+
+
+@pytest.mark.django_db
+def test_approve_pending_connection(sample_connection):
+    assert sample_connection.get_status == 'Pending'
+    sample_connection.approve()
+    assert sample_connection.get_status == 'Approved'
+
+
+@pytest.mark.django_db
+def test_reject_pending_connection(sample_connection):
+    assert sample_connection.get_status == 'Pending'
+    sample_connection.reject()
+    assert sample_connection.get_status == 'Rejected'
+
+
+@pytest.mark.django_db
+def test_approve_non_pending_connection(sample_connection):
+    sample_connection.reject()
+    with pytest.raises(ValueError):
+        with transaction.atomic():
+            sample_connection.approve()
