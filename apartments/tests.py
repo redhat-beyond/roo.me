@@ -61,6 +61,12 @@ class TestModels:
         check_apartment = Apartment.objects.get(owner=new_apartment.owner)
         assert check_apartment == new_apartment
 
+    def test_get_apartment_by_id(self, new_apartment):
+        check_apartment_success = Apartment.get_apartment_by_id(new_apartment.owner.id)
+        check_apartment_fail = Apartment.get_apartment_by_id(-1)
+        assert check_apartment_success == new_apartment
+        assert check_apartment_fail is None
+
 
 @pytest.mark.django_db
 class TestViews:

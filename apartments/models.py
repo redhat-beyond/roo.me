@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from roo_me.settings import AUTH_USER_MODEL
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class City(models.Model):
@@ -25,3 +26,10 @@ class Apartment(models.Model):
 
     def __str__(self):
         return f"Owner:{self.owner}, Addres:{self.address}, City:{self.city}"
+
+    @classmethod
+    def get_apartment_by_id(cls, id):
+        try:
+            return cls.objects.get(owner__id=id)
+        except ObjectDoesNotExist:
+            return None
