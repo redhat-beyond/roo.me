@@ -1,0 +1,16 @@
+{% extends "main/base_template.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Roo.me - Register as Seeker{% endblock %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <fieldset class="form-group">
+        {{ uform|crispy }}
+        {{ sform|crispy }}
+        <button type="submit">Register</button>
+    </fieldset>
+
+</form>
+{% endblock %}
