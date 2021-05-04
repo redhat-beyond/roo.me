@@ -1,5 +1,7 @@
 from users.models import User
 from apartments.models import Apartment, City
+from .forms import ApartmentCreationForm
+from django.urls import reverse
 import pytest
 
 
@@ -82,3 +84,66 @@ class TestViews:
         assert response.status_code == 302
         response = client.get(response.url)
         assert response.status_code == 200
+
+
+@pytest.mark.parametrize(
+    'city, address, rent, num_of_roomates, num_of_rooms, start_date, about, validity',
+    [
+        ('new_city', 'address', 1000, 2, 2, '2021-2-2', 'about', True),
+        ('new_city', '', 1000, 2, 2, '2021-2-2', 'about', False),
+        ('new_city', 'address', None, 2, 2, '2021-2-2', 'about', False),
+        ('new_city', 'address', 1000, None, 2, '2021-2-2', 'about', False),
+        ('new_city', 'address', 1000, 2, None, '2021-2-2', 'about', False),
+        ('new_city', 'address', 1000, 2, 2, '', 'about', False),
+        ('new_city', 'address', 1000, 2, 2, '2021-2-2', '', True),
+        ('new_city', 'address', -1, 2, 2, '2021-2-2', 'about', False),
+        ('new_city', 'address', 1000, -1, 2, '2021-2-2', 'about', False),
+        ('new_city', 'address', 1000, 2, -1, '2021-2-2', 'about', False),
+    ])
+@pytest.mark.django_db
+def test_apartment_form_validity(city, address, rent, num_of_roomates, num_of_rooms, start_date, about,
+                                 validity, request):
+
+    city = request.getfixturevalue(city)
+    form = ApartmentCreationForm(data={
+        'city': city,
+        'address': address,
+        'rent': rent,
+        'num_of_roomates': num_of_roomates,
+        'num_of_rooms': num_of_rooms,
+        'start_date': start_date,
+        'about': about,
+    })
+
+    assert form.is_valid() is validity
+
+
+@pytest.fixture
+def valid_form(new_city):
+    return ApartmentCreationForm(data={
+        'city': new_city,
+        'address': 'address',
+        'rent': 10,
+        'num_of_roomates': 2,
+        'num_of_rooms': 2,
+        'start_date': 2020-1-1,
+        'about': 'about',
+    })
+
+
+@pytest.mark.django_db
+def test_valid_form_is_valid(valid_form):
+    assert valid_form.is_valid
+
+
+@pytest.mark.django_db
+def test_fail_to_save_apartment_form_with_commit_true(valid_form):
+    with pytest.raises(ValueError):
+        valid_form.save(commit=True)
+
+
+@pytest.mark.django_db
+def test_register_apartment_view(client):
+    url = reverse('register_apartment')
+    response = client.get(url)
+    assert response.status_code == 200
