@@ -6,7 +6,7 @@ from contacts.models import Connection
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('contacts', '0002_auto_20210428_0914'),
+        ('contacts', '0003_auto_20210503_1533'),
         ('users', '0002_test_data_users'),
     ]
 
