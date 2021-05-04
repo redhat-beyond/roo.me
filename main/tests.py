@@ -59,3 +59,10 @@ class TestViews:
         response = client.post('/login/', credentials, follow=True)
         assert response.status_code == 200
         assert b"Please enter a correct email" in response.content
+
+    def test_logout_link_functionality(self, client, make_user):
+        sample_user = make_user("test1@gmail.com", "testy", "test", "1995-05-05", "test123")
+        client.login(email="test1@gmail.com", password="test123")
+        response = client.get('/logout/')
+        logged_user = response.wsgi_request.user
+        assert not logged_user == sample_user
