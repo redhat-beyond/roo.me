@@ -1,0 +1,30 @@
+<!doctype html>
+<head>
+  <title>roo.me - Sign Up!</title>
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+  <!-- Custom styles for this template -->
+  <link href="../../static/css/image-fade.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <h1 style="position:fixed; left:520px; top:110px; font-family: cursive;">I'm looking to...</h2>
+  
+  <div class="container" style="position:fixed; left:45px; top:200px;">
+    <img src="../../static/img/moving-in-navigation.jpg" alt="Avatar" class="image" style="width:80%; height:80%">
+    <div class="middle" style="left:270px; top:160px;">
+      <a class="btn btn-outline-success" href="{% url 'register_apartment' %}">Sign up!</a>
+    </div>
+  </div>
+
+  <div class="container" style="position:fixed; left:700px; top:200px;">
+    <img src="../../static/img/moving-out-navigation.jpg" alt="Avatar" class="image" style="width:80%; height:80%">
+    <div class="middle" style="left:290px; top:160px;">
+      <a class="btn btn-outline-success" href="{% url 'register_seeker' %}">Sign up!</a>
+    </div>
+  </div>
+    
+  </body>
+  </html>
