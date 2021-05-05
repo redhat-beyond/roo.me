@@ -25,6 +25,10 @@ class TestViews:
         response = client.get('/')
         assert response.status_code == 200
 
+    def test_register_view(self, client):
+        response = client.get('/register/')
+        assert response.status_code == 200
+
     def test_enter_login_page(self, client):
         response = client.get('/login/')
         assert response.status_code == 200
