@@ -42,6 +42,20 @@ class TestViews:
         response = client.get(response.url)
         assert response.status_code == 200
 
+    def test_apartment_details_view_to_valid_apartment_id(self, client, apartment_model):
+        client.login(email='apartmentemail@address.com', password='password')
+        path = '/apartments/' + str(apartment_model.owner.id) + '/details'
+        response = client.get(path)
+        assert response.status_code == 200
+
+    def test_apartment_details_view_to_invalid_apartment_id(self, client, apartment_model):
+        client.login(email='apartmentemail@address.com', password='password')
+        path = '/apartments/0/details'
+        response = client.get(path)
+        assert response.status_code == 302
+        response = client.get(response.url)
+        assert response.status_code == 200
+
 
 @pytest.mark.parametrize(
     'city, address, rent, num_of_roomates, num_of_rooms, start_date, about, validity',

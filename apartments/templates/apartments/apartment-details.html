@@ -1,0 +1,56 @@
+{% extends "main/base_template.html" %}
+{% block content %}
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <h5 class="card-title">Apartment Details</h5>
+                <h6 class="card-subtitle mb-2 text-muted">owner: <a href="#">{{ apartment.owner }}</a></h6>
+            </div>
+            <div class="col-6" style="text-align: right;">
+                {% if request.user == apartment.owner %}
+                <a href="{% url 'apartment-update' %}" class="btn btn-primary">Update</a>
+                {% elif apartment.is_relevant %}
+                <a href="#" class="card-link">V icon</a>
+                <a href="#" class="card-link">X icon</a>
+                {% endif %}
+
+                {% if not apartment.is_relevant %}
+                <p class="card-text">This apartment is not relevant anymore</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <dl class="row">
+            <dt class="col-sm-3">City</dt>
+            <dd class="col-sm-9">{{ apartment.city }}</dd>
+
+            <dt class="col-sm-3">Address</dt>
+            <dd class="col-sm-9">{{ apartment.address }}</dd>
+
+            <dt class="col-sm-3">Rent</dt>
+            <dd class="col-sm-9">{{ apartment.rent }}</dd>
+
+            <dt class="col-sm-3 text-truncate">Number of Roomates</dt>
+            <dd class="col-sm-9">{{ apartment.num_of_roomates }}</dd>
+
+            <dt class="col-sm-3 text-truncate">Number of Rooms</dt>
+            <dd class="col-sm-9">{{ apartment.num_of_rooms }}</dd>
+
+            <dt class="col-sm-3 text-truncate">Start Date</dt>
+            <dd class="col-sm-9">{{ apartment.start_date }}</dd>
+
+            <dt class="col-sm-3 text-truncate">About</dt>
+            <dd class="col-sm-9"> {{ apartment.aboute }}</dd>
+        </dl>
+        <small class="text-muted">posted in {{ apartment.date_posted }}</small>
+    <div class="card-img">
+        <img src='{{ apartment.image_url }}' style="width: 80%;">
+    </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
