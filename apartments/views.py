@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from users.forms import UserCreationForm
+from main.decorators import not_logged_in_required
 from .forms import (ApartmentDetailsUpdateForm,
                     ApartmentQualitiesUpdateForm,
                     ApartmentCreationForm,)
@@ -30,6 +31,7 @@ def updateApartment(request):
     return render(request, 'apartments/update-apartment.html', context)
 
 
+@not_logged_in_required(redirect_to='home')
 def register_apartment(request):
     if request.method == 'POST':
         user_creation_form = UserCreationForm(request.POST)

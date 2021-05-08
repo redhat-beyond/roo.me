@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from users.forms import UserCreationForm
 from .forms import SeekerCreationForm
+from main.decorators import not_logged_in_required
 
 
+@not_logged_in_required(redirect_to='home')
 def register_seeker(request):
     if request.method == 'POST':
         user_creation_form = UserCreationForm(request.POST)
