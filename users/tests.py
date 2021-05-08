@@ -1,16 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import transaction, IntegrityError
-from seekers.models import Seeker
-from apartments.models import Apartment, City
 from .forms import UserCreationForm
 import pytest
-
-
-@pytest.fixture
-def superuser_model():
-    return get_user_model().objects.create_superuser(
-        'email@address.com', 'first_name', 'last_name', '1900-01-01', 'password'
-    )
 
 
 @pytest.mark.django_db
@@ -52,13 +43,6 @@ def test_superuser_flags(is_superuser_flag, is_staff_flag):
             )
 
 
-@pytest.fixture
-def user_model():
-    return get_user_model().objects.create_user(
-        'email@address.com', 'first_name', 'last_name', '1900-01-01', 'password'
-    )
-
-
 @pytest.mark.django_db
 def test_user_creation(user_model):
     assert user_model.email == 'email@address.com'
@@ -87,53 +71,6 @@ def test_user_blank_fields(email_field, first_name_field, last_name_field, birth
             get_user_model().objects.create_user(
                 email_field, first_name_field, last_name_field, birth_day_field, 'password'
             )
-
-
-@pytest.fixture
-def city_model():
-    new_city = City(cityName='nice_city')
-    new_city.save()
-    return new_city
-
-
-@pytest.fixture
-def seeker_model(city_model):
-    new_base_user = get_user_model().objects.create_user(
-        'seekeremail@address.com', 'seeker', 'macseek', '1900-01-01', 'password'
-    )
-    new_base_user.save()
-    new_seeker = Seeker(
-        base_user=new_base_user,
-        city=city_model,
-        start_date='1900-01-01',
-        min_rent=1,
-        max_rent=1000,
-        num_of_roomates=2,
-        num_of_rooms=2,
-        about='test-seeker'
-    )
-    new_seeker.save()
-    return new_seeker
-
-
-@pytest.fixture
-def apartment_model(city_model):
-    new_owner = get_user_model().objects.create_user(
-        'apartmentemail@address.com', 'owner', 'own', '1900-01-01', 'password'
-    )
-    new_owner.save()
-    new_apartment = Apartment(
-        owner=new_owner,
-        city=city_model,
-        address='some-street',
-        rent=20,
-        num_of_roomates=2,
-        num_of_rooms=2,
-        start_date='1900-01-01',
-        about='test-apartment'
-    )
-    new_apartment.save()
-    return new_apartment
 
 
 @pytest.mark.django_db
