@@ -3,7 +3,7 @@ from .models import Seeker
 from django.core.validators import MinValueValidator
 
 
-class SeekerCreationForm(forms.ModelForm):
+class SeekerUpdateForm(forms.ModelForm):
     min_rent = forms.IntegerField(validators=[MinValueValidator(limit_value=0)])
     num_of_roomates = forms.IntegerField(validators=[MinValueValidator(limit_value=0)])
     num_of_rooms = forms.IntegerField(validators=[MinValueValidator(limit_value=0)])
@@ -32,6 +32,8 @@ class SeekerCreationForm(forms.ModelForm):
             raise forms.ValidationError('max rent must be larger than min rent')
         return max_rent
 
+
+class SeekerCreationForm(SeekerUpdateForm):
     def save(self, commit=False):
         if commit:
             raise ValueError("Can't save to the data-base without owner field")

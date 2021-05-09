@@ -59,3 +59,19 @@ def test_accessing_seeker_register_view_with_logged_user(client, user_model):
     assert response.status_code == 302
     response = client.get(response.url)
     assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_update_seeker_view_to_valid_user(client, seeker_model):
+    client.login(email='seekeremail@address.com', password='password')
+    response = client.get('/seekers/update/')
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_update_seeker_view_to_invalid_user(client, user_model):
+    client.login(email='email@address.com', password='password')
+    response = client.get('/seekers/update/')
+    assert response.status_code == 302
+    response = client.get(response.url)
+    assert response.status_code == 200
