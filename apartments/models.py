@@ -33,3 +33,7 @@ class Apartment(models.Model):
             return cls.objects.get(owner__id=id)
         except ObjectDoesNotExist:
             return None
+
+    @classmethod
+    def get_all_relevant_apartments(cls):
+        return cls.objects.filter(is_relevant=True)

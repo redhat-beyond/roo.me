@@ -69,6 +69,11 @@ class TestModels:
         assert check_apartment_success == new_apartment
         assert check_apartment_fail is None
 
+    def test_get_all_relevant_apartments(self):
+        apartments_qurey = Apartment.get_all_relevant_apartments()
+        assert all(isinstance(current_apartment, Apartment) for current_apartment in apartments_qurey)
+        assert all(current_apartment.is_relevant for current_apartment in apartments_qurey)
+
 
 @pytest.mark.django_db
 class TestViews:
