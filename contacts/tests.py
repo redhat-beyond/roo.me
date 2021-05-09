@@ -1,5 +1,5 @@
 import pytest
-from .models import Connection
+from .models import Connection, ConnectionType
 from django.contrib.auth import get_user_model
 from django.db import transaction, IntegrityError
 
@@ -70,3 +70,24 @@ def test_approve_non_pending_connection(sample_connection):
     with pytest.raises(ValueError):
         with transaction.atomic():
             sample_connection.approve()
+
+
+@pytest.mark.django_db
+def test_get_pending_connections(sample_connection):
+    assert sample_connection.get_status == 'Pending'
+    pendings = Connection.get_connections_by_user(sample_connection.seeker.base_user, ConnectionType.PENDING)
+    assert pendings.count() == 1
+    pendings = Connection.get_connections_by_user(sample_connection.apartment.owner, ConnectionType.PENDING)
+    assert pendings.count() == 1
+    assert pendings.first().seeker == sample_connection.seeker
+
+
+@pytest.mark.django_db
+def test_get_approved_connections(sample_connection):
+    assert sample_connection.get_status == 'Pending'
+    approved = Connection.get_connections_by_user(sample_connection.seeker.base_user, ConnectionType.APPROVED)
+    assert approved.count() == 0
+    sample_connection.approve()
+    assert sample_connection.get_status == 'Approved'
+    approved = Connection.get_connections_by_user(sample_connection.seeker.base_user, ConnectionType.APPROVED)
+    assert approved.count() == 1
