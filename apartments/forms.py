@@ -21,20 +21,6 @@ class ApartmentDetailsUpdateForm(forms.ModelForm):
             ]
 
 
-class ApartmentQualitiesUpdateForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = [
-            'not_smoking',
-            'pets_allowed',
-            'air_conditioner',
-            'balcony',
-            'elevator',
-            'long_term',
-            'immediate_entry'
-        ]
-
-
 class ApartmentCreationForm(forms.ModelForm):
     rent = forms.IntegerField(validators=[MinValueValidator(limit_value=0)])
     num_of_roomates = forms.IntegerField(validators=[MinValueValidator(limit_value=0)])

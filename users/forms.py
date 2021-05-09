@@ -34,3 +34,17 @@ class UserCreationForm(forms.ModelForm):
         if commit:
             new_user.save()
         return new_user
+
+
+class QualitiesForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            'not_smoking',
+            'pets_allowed',
+            'air_conditioner',
+            'balcony',
+            'elevator',
+            'long_term',
+            'immediate_entry'
+        ]

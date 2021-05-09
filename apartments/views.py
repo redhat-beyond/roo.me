@@ -1,10 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from users.forms import UserCreationForm
 from main.decorators import not_logged_in_required
-from .forms import (ApartmentDetailsUpdateForm,
-                    ApartmentQualitiesUpdateForm,
-                    ApartmentCreationForm,)
+from users.forms import UserCreationForm, QualitiesForm
+from .forms import ApartmentDetailsUpdateForm, ApartmentCreationForm
 from .models import Apartment
 import main
 
@@ -16,14 +14,14 @@ def update_apartment(request):
 
     if request.method == 'POST':
         apartment_form = ApartmentDetailsUpdateForm(request.POST, instance=request.user.apartment)
-        qualities_form = ApartmentQualitiesUpdateForm(request.POST, instance=request.user)
+        qualities_form = QualitiesForm(request.POST, instance=request.user)
         if apartment_form.is_valid() and qualities_form.is_valid():
             apartment_form.save()
             qualities_form.save()
             return redirect('apartment-update')
     else:
         apartment_form = ApartmentDetailsUpdateForm(instance=request.user.apartment)
-        qualities_form = ApartmentQualitiesUpdateForm(instance=request.user)
+        qualities_form = QualitiesForm(instance=request.user)
 
     context = {
         'apartment_form': apartment_form,
