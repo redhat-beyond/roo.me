@@ -1,4 +1,5 @@
 from .forms import SeekerCreationForm
+from .models import Seeker
 from django.urls import reverse
 import pytest
 
@@ -42,6 +43,16 @@ def test_valid_form_is_valid(valid_seeker_creation_form):
 def test_fail_to_save_seeker_form_with_commit_true(valid_seeker_creation_form):
     with pytest.raises(ValueError):
         valid_seeker_creation_form.save(commit=True)
+
+
+@pytest.mark.django_db
+def test_saving_function_of_apartment_creation_form(valid_user_creation_form, valid_seeker_creation_form):
+    new_user = valid_user_creation_form.save()
+    new_seeker = valid_seeker_creation_form.save()
+    assert Seeker.objects.filter(base_user=new_user).count() == 0
+    new_seeker.base_user = new_user
+    new_seeker.save()
+    assert Seeker.objects.filter(base_user=new_user).count() == 1
 
 
 @pytest.mark.django_db

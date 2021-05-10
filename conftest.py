@@ -4,6 +4,7 @@ from apartments.models import Apartment, City
 from contacts.models import Connection
 from seekers.forms import SeekerCreationForm
 from apartments.forms import ApartmentCreationForm
+from users.forms import UserCreationForm
 import pytest
 
 
@@ -72,6 +73,18 @@ def apartment_model(db, city_model):
 
 
 @pytest.fixture
+def valid_user_creation_form(db):
+    return UserCreationForm(data={
+        'email': 'formTest@mail.com',
+        'first_name': 'first',
+        'last_name': 'last',
+        'birth_date': '1900-1-1',
+        'password1': 'pass123word',
+        'password2': 'pass123word',
+    })
+
+
+@pytest.fixture
 def valid_seeker_creation_form(db, city_model):
     return SeekerCreationForm(data={
         'city': city_model,
@@ -92,7 +105,7 @@ def valid_apartment_creation_form(db, city_model):
         'rent': 10,
         'num_of_roomates': 2,
         'num_of_rooms': 2,
-        'start_date': 2020-1-1,
+        'start_date': '2020-1-1',
         'about': 'about',
     })
 
