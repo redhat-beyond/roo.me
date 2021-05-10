@@ -56,5 +56,5 @@ class ApartmentCreationForm(forms.ModelForm):
         if commit:
             raise ValueError("Can't save to the data-base without owner field")
         else:
-            new_apartment = super().save()
+            new_apartment = super().save(commit=False)
             return new_apartment
