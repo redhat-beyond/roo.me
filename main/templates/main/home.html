@@ -2,15 +2,21 @@
 
 {% block title %}roo.me - Home page{% endblock %}
 
+{% block sidebar %}
+ 	<div class="card shadow p-3 mb-5 bg-white rounded">
+        <img class="card-img-top user-image" alt="User image">
+        <div class="card-body">
+        <h5 class="card-title username"></h5>
+        <h6 class="card-subtitle text-muted">Recent Connections</h6>
+        <ul class="list-group list-group-flush recent-connections">
+        </ul>
+        <br/>
+        <a href="connections.html" class="btn btn-primary">Connections</a>
+        </div>
+	</div>
+{% endblock %}
+
 {% block content %}
-<style type="text/css">
-    .content {
-        text-align: center;
-        padding: 100px;
-    }
-</style>
-<div class="content">
-    <img src="https://user-images.githubusercontent.com/53123142/110364209-287bbd80-804c-11eb-91c3-a158b115ef27.png"> </img>
-    <h1>Coming Soon</h1>
-</div>
+	<div class="card-columns" id="all-apartments">
+    </div>
 {% endblock %}
