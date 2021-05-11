@@ -1,0 +1,40 @@
+{% extends "main/base_template.html" %}
+
+{% block title %}Roo.me - Contacts{% endblock %}
+
+{% block content %}
+
+<style>body {background-color: rgb(233, 229, 229);}</style>
+
+<h1><u>Pending connections: </u></h1>
+<div class="list-group">
+    {% for connection in pending_connections %}
+    <a href="/apartments/{{connection.apartment.pk}}/details" class="list-group-item list-group-item-action" aria-current="true">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{connection.apartment.address}}, {{connection.apartment.city}}</h5>
+        <small>{{connection.date_created}}</small>
+      </div>
+      <p class="mb-1">{{connection.apartment.about}}</p>
+      <small>{{connection.apartment.num_of_rooms}} rooms | {{connection.apartment.num_of_roomates}} roommates<br></small>
+      <small>{{connection.apartment.rent}} per month<br></small>
+      <small><i>This connection request has yet to be approved</i></small>
+    </a>
+    {% endfor %}
+</div>
+
+<h1><u>Active connections: </u></h1>
+<div class="list-group">
+    {% for connection in approved_connections %}
+    <a href="/apartments/{{connection.apartment.pk}}/details" class="list-group-item list-group-item-action" aria-current="true">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{connection.apartment.address}}, {{connection.apartment.city}}</h5>
+        <small>{{connection.date_created}}</small>
+      </div>
+      <p class="mb-1">{{connection.apartment.about}}</p>
+      <small>{{connection.apartment.num_of_rooms}} rooms | {{connection.apartment.num_of_roomates}} roommates<br></small>
+      <small>{{connection.apartment.rent}} per month<br></small>
+      <small><i>Click to view apartment details</i></small>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

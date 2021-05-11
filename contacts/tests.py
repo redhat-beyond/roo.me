@@ -91,3 +91,27 @@ def test_get_approved_connections(sample_connection):
     assert sample_connection.get_status == 'Approved'
     approved = Connection.get_connections_by_user(sample_connection.seeker.base_user, ConnectionType.APPROVED)
     assert approved.count() == 1
+
+
+@pytest.mark.django_db
+def test_seeker_redirect_to_contacts_page(sample_connection, client):
+    seeker_email = "t1@m.com"
+    seeker_pass = "testing"  # credentials for sample_connection.seeker
+    client.login(email=seeker_email, password=seeker_pass)
+    response = client.get('/contacts/')
+    assert response.status_code == 200
+    logged_user = response.wsgi_request.user
+    assert logged_user == sample_connection.seeker.base_user
+    assert b"This connection request has yet to be approved" in response.content
+
+
+@pytest.mark.django_db
+def test_owner_redirect_to_contacts_page(sample_connection, client):
+    owner_email = "t3@m.com"
+    owner_pass = "testing"  # credentials for sample_connection.apartment
+    client.login(email=owner_email, password=owner_pass)
+    response = client.get('/contacts/')
+    assert response.status_code == 200
+    logged_user = response.wsgi_request.user
+    assert logged_user == sample_connection.apartment.owner
+    assert b"You can approve or decline this connection" in response.content
