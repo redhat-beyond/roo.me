@@ -10,7 +10,7 @@
 ## Additional Information
 <!---Post here any additional information about this PR. For example links to new technologies used in this PR, changes needed to documentation etc.-->
 
-### Issues close by this PR
+### Issues closed by this PR
 <!---If this PR closes any issues, list them here using "Fixes #<ISSUE_NO>"-->
 
 ### PR Dependencies
