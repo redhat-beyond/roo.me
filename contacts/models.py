@@ -26,13 +26,26 @@ class Connection(models.Model):
             raise ValueError('Connection cannot be approved!')
         else:
             self.status = ConnectionType.APPROVED
+            self.save()
 
     def reject(self):
         self.status = ConnectionType.REJECTED
+        self.save()
 
     @property
     def get_status(self):
         return self.status.label
+
+    @classmethod
+    def get_connections_by_user(cls, user, desired_status):
+        if user.is_seeker:
+            seeker_profile = user.seeker
+            connections = cls.objects.filter(seeker=seeker_profile, status=desired_status)
+        else:
+            apartment_profile = user.apartment
+            connections = cls.objects.filter(apartment=apartment_profile, status=desired_status)
+
+        return connections
 
     class Meta:
         unique_together = ['apartment', 'seeker']
