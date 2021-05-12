@@ -15,7 +15,7 @@ def register_seeker(request):
             seeker_profile = seeker_creation_form.save(commit=False)
             seeker_profile.base_user = new_base_user
             seeker_profile.save()
-            return redirect('home')
+            return redirect('login')
     else:
         user_creation_form = UserCreationForm()
         seeker_creation_form = SeekerCreationForm()
