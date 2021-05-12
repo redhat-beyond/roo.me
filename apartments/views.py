@@ -4,10 +4,12 @@ from users.forms import UserCreationForm
 from .forms import (ApartmentDetailsUpdateForm,
                     ApartmentQualitiesUpdateForm,
                     ApartmentCreationForm,)
+from .models import Apartment
+import main
 
 
 @login_required
-def updateApartment(request):
+def update_apartment(request):
     if request.user.is_owner is False:
         return redirect('home')
 
@@ -48,3 +50,15 @@ def register_apartment(request):
         "uform": user_creation_form,
         "aform": apartment_creation_form,
         })
+
+
+@login_required()
+def apartment_details(request, apartment_id):
+    apartment_to_view = Apartment.get_apartment_by_id(apartment_id)
+
+    if apartment_to_view is None:
+        return redirect(main.views.home)
+
+    return render(request, 'apartments/apartment-details.html', {
+         'apartment': apartment_to_view,
+         })
