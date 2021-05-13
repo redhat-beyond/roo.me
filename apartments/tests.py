@@ -101,6 +101,16 @@ def test_fail_to_save_apartment_form_with_commit_true(valid_apartment_creation_f
 
 
 @pytest.mark.django_db
+def test_saving_function_of_apartment_creation_form(valid_user_creation_form, valid_apartment_creation_form):
+    new_user = valid_user_creation_form.save()
+    new_apart = valid_apartment_creation_form.save()
+    assert Apartment.objects.filter(owner=new_user).count() == 0
+    new_apart.owner = new_user
+    new_apart.save()
+    assert Apartment.objects.filter(owner=new_user).count() == 1
+
+
+@pytest.mark.django_db
 def test_register_apartment_view(client):
     url = reverse('register_apartment')
     response = client.get(url)

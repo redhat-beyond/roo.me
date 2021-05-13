@@ -114,3 +114,8 @@ def test_form_validity(email, first_name, last_name, birth_date, password1, pass
     })
 
     assert form.is_valid() is validity
+
+
+@pytest.mark.django_db
+def test_valid_form_is_valid(valid_user_creation_form):
+    assert valid_user_creation_form.is_valid
