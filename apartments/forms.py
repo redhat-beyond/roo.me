@@ -1,5 +1,4 @@
 from django import forms
-from users.models import User
 from .models import Apartment
 from django.core.validators import MinValueValidator
 
@@ -19,20 +18,6 @@ class ApartmentDetailsUpdateForm(forms.ModelForm):
             'is_relevant',
             'image_url'
             ]
-
-
-class ApartmentQualitiesUpdateForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = [
-            'not_smoking',
-            'pets_allowed',
-            'air_conditioner',
-            'balcony',
-            'elevator',
-            'long_term',
-            'immediate_entry'
-        ]
 
 
 class ApartmentCreationForm(forms.ModelForm):

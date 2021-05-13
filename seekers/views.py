@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from users.forms import UserCreationForm
-from .forms import SeekerCreationForm
+from django.contrib.auth.decorators import login_required
 from main.decorators import not_logged_in_required
+from users.forms import UserCreationForm, QualitiesForm
+from .forms import SeekerCreationForm, SeekerUpdateForm
 
 
 @not_logged_in_required(redirect_to='home')
@@ -23,3 +24,27 @@ def register_seeker(request):
         "uform": user_creation_form,
         "sform": seeker_creation_form,
         })
+
+
+@login_required
+def update_seeker(request):
+    if not request.user.is_seeker:
+        return redirect('home')
+
+    if request.method == 'POST':
+        seeker_form = SeekerUpdateForm(request.POST, instance=request.user.seeker)
+        qualities_form = QualitiesForm(request.POST, instance=request.user)
+        if seeker_form.is_valid() and qualities_form.is_valid():
+            seeker_form.save()
+            qualities_form.save()
+            return redirect('seeker-update')
+    else:
+        seeker_form = SeekerUpdateForm(instance=request.user.seeker)
+        qualities_form = QualitiesForm(instance=request.user)
+
+    context = {
+        'seeker_form': seeker_form,
+        'qualities_form': qualities_form
+    }
+
+    return render(request, 'seekers/update-seeker.html', context)
