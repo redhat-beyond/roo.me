@@ -1,7 +1,9 @@
 import pytest
 from .models import Connection, ConnectionType
+from apartments.models import Apartment
 from django.contrib.auth import get_user_model
 from django.db import transaction, IntegrityError
+from django.contrib.messages import get_messages
 
 
 @pytest.mark.django_db
@@ -94,10 +96,7 @@ def test_get_approved_connections(sample_connection):
 
 
 @pytest.mark.django_db
-def test_seeker_redirect_to_contacts_page(sample_connection, client):
-    seeker_email = "t1@m.com"
-    seeker_pass = "testing"  # credentials for sample_connection.seeker
-    client.login(email=seeker_email, password=seeker_pass)
+def test_seeker_redirect_to_contacts_page(sample_connection, client, log_in_sample_connection_seeker):
     response = client.get('/contacts/')
     assert response.status_code == 200
     logged_user = response.wsgi_request.user
@@ -106,12 +105,59 @@ def test_seeker_redirect_to_contacts_page(sample_connection, client):
 
 
 @pytest.mark.django_db
-def test_owner_redirect_to_contacts_page(sample_connection, client):
-    owner_email = "t3@m.com"
-    owner_pass = "testing"  # credentials for sample_connection.apartment
-    client.login(email=owner_email, password=owner_pass)
+def test_owner_redirect_to_contacts_page(sample_connection, client, log_in_sample_connection_apartment):
     response = client.get('/contacts/')
     assert response.status_code == 200
     logged_user = response.wsgi_request.user
     assert logged_user == sample_connection.apartment.owner
     assert b"You can approve or decline this connection" in response.content
+
+
+@pytest.mark.django_db
+def test_seeker_add_contact(sample_connection, client, make_apartment, log_in_sample_connection_seeker):
+    pendings = Connection.get_connections_by_user(sample_connection.seeker.base_user, ConnectionType.PENDING)
+    assert pendings.count() == 1
+    temp_user = get_user_model().objects.create_user("t4@m.com", "test4", "test", "1995-05-05", "testing")
+    temp_apartment = make_apartment(temp_user, "Haickarim 5", 300, 3, 3, "2021-05-05")
+    temp_id = temp_apartment.pk
+    response = client.get(f'/contacts/add/{temp_id}', follow=True)
+    assert response.status_code == 200
+    pendings = Connection.get_connections_by_user(sample_connection.seeker.base_user, ConnectionType.PENDING)
+    assert pendings.count() == 2
+    ok_message = list(get_messages(response.wsgi_request))[0]
+    assert ok_message.message == "Connection request sent!"
+
+
+@pytest.mark.django_db
+def test_owner_cant_add_contacts(client, log_in_sample_connection_apartment):
+    response = client.get('/contacts/add/1', follow=True)
+    assert response.status_code == 200
+    error_message = list(get_messages(response.wsgi_request))[0]
+    assert error_message.message == "You can't send a connection request!"
+
+
+@pytest.mark.django_db
+def test_cant_add_unexisting_apartment(sample_connection, client, log_in_sample_connection_seeker):
+    pendings = Connection.get_connections_by_user(sample_connection.seeker.base_user, ConnectionType.PENDING)
+    assert pendings.count() == 1
+    unexisting_id = (Apartment.objects.last().pk) + 1
+    response = client.get(f'/contacts/add/{unexisting_id}', follow=True)
+    assert response.status_code == 200
+    pendings = Connection.get_connections_by_user(sample_connection.seeker.base_user, ConnectionType.PENDING)
+    assert pendings.count() == 1
+    error_message = list(get_messages(response.wsgi_request))[0]
+    assert error_message.message == "Invalid apartment request!"
+
+
+@pytest.mark.django_db
+def test_cant_add_duplicate_connection(sample_connection, client, log_in_sample_connection_seeker):
+    pendings = Connection.get_connections_by_user(sample_connection.seeker.base_user, ConnectionType.PENDING)
+    assert pendings.count() == 1
+    curr_apartment = sample_connection.apartment
+    curr_id = curr_apartment.pk
+    response = client.get(f'/contacts/add/{curr_id}', follow=True)
+    assert response.status_code == 200
+    pendings = Connection.get_connections_by_user(sample_connection.seeker.base_user, ConnectionType.PENDING)
+    assert pendings.count() == 1
+    error_message = list(get_messages(response.wsgi_request))[0]
+    assert error_message.message == "You have already sent a connection request to this user!"

@@ -159,14 +159,14 @@ def sample_connection(db, make_seeker, make_apartment):
 
 
 @pytest.fixture
-def log_in_sample_connection_seeker(db, client):
+def log_in_sample_connection_seeker(db, sample_connection, client):
     seeker_email = "t1@m.com"
     seeker_pass = "testing"  # credentials for sample_connection.seeker
     client.login(email=seeker_email, password=seeker_pass)
 
 
 @pytest.fixture
-def log_in_sample_connection_apartment(db, client):
+def log_in_sample_connection_apartment(db, sample_connection, client):
     owner_email = "t3@m.com"
     owner_pass = "testing"  # credentials for sample_connection.apartment
     client.login(email=owner_email, password=owner_pass)
