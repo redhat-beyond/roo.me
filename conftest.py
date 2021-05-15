@@ -4,6 +4,7 @@ from apartments.models import Apartment, City
 from contacts.models import Connection
 from seekers.forms import SeekerCreationForm
 from apartments.forms import ApartmentCreationForm
+from search.forms import SearchForm
 from users.forms import UserCreationForm
 import pytest
 
@@ -27,6 +28,13 @@ def user_model(db):
 @pytest.fixture
 def city_model(db):
     new_city = City(cityName='nice_city')
+    new_city.save()
+    return new_city
+
+
+@pytest.fixture
+def city_model_Tel_Aviv(db):
+    new_city = City(cityName='Tel Aviv')
     new_city.save()
     return new_city
 
@@ -73,6 +81,48 @@ def apartment_model(db, city_model):
 
 
 @pytest.fixture
+def apart_success_search(db, city_model_Tel_Aviv):
+    new_owner = get_user_model().objects.create_user(
+        'apartmentemailsuccessfulsearch@address.com', 'owner', 'own', '1900-01-01', 'password'
+    )
+    new_owner.save()
+    new_apartment = Apartment(
+        owner=new_owner,
+        city=city_model_Tel_Aviv,
+        address='street',
+        rent=2500,
+        num_of_roomates=2,
+        num_of_rooms=3,
+        start_date='2021-01-01',
+        about='Hey!',
+        image_url='www.some-url.com',
+    )
+    new_apartment.save()
+    return new_apartment
+
+
+@pytest.fixture
+def apart2_success_search(db, city_model_Tel_Aviv):
+    new_owner = get_user_model().objects.create_user(
+        'apartment2emailsuccessfulsearch@address.com', 'owner', 'own', '1900-01-01', 'password'
+    )
+    new_owner.save()
+    new_apartment = Apartment(
+        owner=new_owner,
+        city=city_model_Tel_Aviv,
+        address='street',
+        rent=2750,
+        num_of_roomates=2,
+        num_of_rooms=3,
+        start_date='2020-07-17',
+        about='Hey!',
+        image_url='www.some-url.com',
+    )
+    new_apartment.save()
+    return new_apartment
+
+
+@pytest.fixture
 def valid_user_creation_form(db):
     return UserCreationForm(data={
         'email': 'formTest@mail.com',
@@ -107,6 +157,18 @@ def valid_apartment_creation_form(db, city_model):
         'num_of_rooms': 2,
         'start_date': '2020-1-1',
         'about': 'about',
+    })
+
+
+@pytest.fixture
+def valid_search_form(db, city_model_Tel_Aviv):
+    return SearchForm(data={
+        'city': city_model_Tel_Aviv,
+        'start_date': '2021-01-01',
+        'min_rent': 2000,
+        'max_rent': 3000,
+        'num_of_roomates': 2,
+        'num_of_rooms': 3,
     })
 
 
