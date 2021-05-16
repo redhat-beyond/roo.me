@@ -53,7 +53,7 @@ Right now, there is not much to contribute as roo.me is under development. But c
 - Fix issues from the [issues section](https://github.com/beyond-io/roo.me/issues)
 - Maintain documentation
 
-Be sure to set up a development environment before contributing to roo.me.
+Be sure to set up a development environment before contributing to roo.me. For more information, check out our [CONTRIBUTING.md](https://github.com/beyond-io/roo.me/blob/main/CONTRIBUTING.md) file.
 
 ### Getting Started
 
