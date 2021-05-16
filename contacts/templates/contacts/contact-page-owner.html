@@ -4,36 +4,34 @@
 
 {% block content %}
 
-<style>body {background-color: rgb(240, 233, 233);}</style>
-
 <h1><u>Pending connections: </u></h1>
 <div class="list-group">
     {% for connection in pending_connections %}
-    <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+    <div href="#" class="list-group-item list-group-item-action" aria-current="true">
       <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">{{connection.seeker.base_user.first_name}} {{connection.seeker.base_user.last_name}}</h5>
         <small>{{connection.date_created}}</small>
       </div>
       <p class="mb-1">{{connection.seeker.about}}</p>
-      <button href="#" style="background-color: rgb(89, 146, 89);" class="btn btn-info">Approve!</button>
-      <button href="#" class="btn btn-primary">Decline!</button>
+      <a href="/contacts/approve/{{connection.pk}}" style="background-color: rgb(89, 146, 89);" class="btn btn-info">Approve!</a>
+      <a href="/contacts/reject/{{connection.pk}}" class="btn btn-primary">Decline!</a>
       <p><small><i>You can approve or decline this connection</i></small></p>
-    </a>
+    </div>
     {% endfor %}
 </div>
 
 <h1><u>Active connections: </u></h1>
 <div class="list-group">
     {% for connection in approved_connections %}
-    <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+    <div href="#" class="list-group-item list-group-item-action" aria-current="true">
       <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">{{connection.seeker.base_user.first_name}} {{connection.seeker.base_user.last_name}}</h5>
         <small>{{connection.date_created}}</small>
       </div>
       <p class="mb-1">{{connection.seeker.about}}</p>
-      <button href="#" style="background-color: rgb(179, 62, 62);" class="btn btn-info">Remove!</button>
+      <a href="/contacts/reject/{{connection.pk}}" style="background-color: rgb(179, 62, 62);" class="btn btn-info">Remove!</a>
       <p><small><i>This connection is in progress</i></small></p>
-    </a>
+    </div>
     {% endfor %}
 </div>
 {% endblock %}
