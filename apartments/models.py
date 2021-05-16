@@ -25,7 +25,7 @@ class Apartment(models.Model):
     image_url = models.TextField(blank=True)
 
     def __str__(self):
-        return f"Owner:{self.owner}, Addres:{self.address}, City:{self.city}"
+        return f"Owner:{self.owner}, Address:{self.address}, City:{self.city}"
 
     @classmethod
     def get_apartment_by_id(cls, id):
