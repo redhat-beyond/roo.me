@@ -50,3 +50,13 @@ def update_seeker(request):
     }
 
     return render(request, 'seekers/update-seeker.html', context)
+
+
+@login_required
+def seeker_home(request):
+    apartments = request.user.seeker.get_matched_apartments()
+    context = {
+        'seeker': request.user,
+        'apartments': apartments,
+    }
+    return render(request, 'seekers/seeker_home.html', context)
