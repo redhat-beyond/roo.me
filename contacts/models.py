@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import date
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class ConnectionType(models.TextChoices):
@@ -22,7 +23,7 @@ class Connection(models.Model):
         return f"{self.apartment.owner.first_name} and {self.seeker.base_user.first_name}'s connection"
 
     def approve(self):
-        if(self.status is not ConnectionType.PENDING):
+        if(self.status != ConnectionType.PENDING):
             raise ValueError('Connection cannot be approved!')
         else:
             self.status = ConnectionType.APPROVED
@@ -35,6 +36,13 @@ class Connection(models.Model):
     @property
     def get_status(self):
         return self.status.label
+
+    @classmethod
+    def get_connection_by_id(cls, con_id):
+        try:
+            return cls.objects.get(id=con_id)
+        except ObjectDoesNotExist:
+            return None
 
     @classmethod
     def get_connections_by_user(cls, user, desired_status):

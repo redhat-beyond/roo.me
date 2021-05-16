@@ -161,3 +161,119 @@ def test_cant_add_duplicate_connection(sample_connection, client, log_in_sample_
     assert pendings.count() == 1
     error_message = list(get_messages(response.wsgi_request))[0]
     assert error_message.message == "You have already sent a connection request to this user!"
+
+
+@pytest.mark.django_db
+def test_approve_connection_url(sample_connection, client, log_in_sample_connection_apartment):
+    assert sample_connection.status == 'P'  # pending
+    approved = Connection.get_connections_by_user(sample_connection.apartment.owner, ConnectionType.APPROVED)
+    assert approved.count() == 0
+    response = client.get('/contacts/')
+    assert response.wsgi_request.user == sample_connection.apartment.owner
+    connection_id = sample_connection.id
+    response = client.get(f'/contacts/approve/{connection_id}', follow=True)
+    assert response.status_code == 200
+    sample_connection.refresh_from_db()
+    approved = Connection.get_connections_by_user(sample_connection.apartment.owner, ConnectionType.APPROVED)
+    assert approved.count() == 1
+    assert sample_connection.status == 'A'  # approved
+    connection_seeker = sample_connection.seeker.base_user
+    error_message = list(get_messages(response.wsgi_request))[0]
+    assert error_message.message == f"You can now contact {connection_seeker.first_name}!"
+
+
+@pytest.mark.django_db
+def test_reject_connection_url(sample_connection, client, log_in_sample_connection_apartment):
+    assert sample_connection.status == 'P'  # pending
+    rejected = Connection.get_connections_by_user(sample_connection.apartment.owner, ConnectionType.REJECTED)
+    assert rejected.count() == 0
+    connection_id = sample_connection.id
+    response = client.get(f'/contacts/reject/{connection_id}', follow=True)
+    assert response.status_code == 200
+    sample_connection.refresh_from_db()
+    rejected = Connection.get_connections_by_user(sample_connection.apartment.owner, ConnectionType.REJECTED)
+    assert rejected.count() == 1
+    assert sample_connection.status == 'R'  # rejected
+    connection_seeker = sample_connection.seeker.base_user
+    error_message = list(get_messages(response.wsgi_request))[0]
+    assert error_message.message == f"{connection_seeker.first_name} won't bother you anymore!"
+
+
+@pytest.mark.django_db
+def test_cant_use_unexisting_connection(sample_connection, client, log_in_sample_connection_apartment):
+    approved = Connection.get_connections_by_user(sample_connection.apartment.owner, ConnectionType.APPROVED)
+    assert approved.count() == 0
+    unexisting_id = Connection.objects.last().id + 1
+    response = client.get(f'/contacts/approve/{unexisting_id}', follow=True)
+    assert response.status_code == 200
+    approved = Connection.get_connections_by_user(sample_connection.apartment.owner, ConnectionType.APPROVED)
+    assert approved.count() == 0
+    error_message = list(get_messages(response.wsgi_request))[0]
+    assert error_message.message == "Invalid connection request!"
+
+
+@pytest.mark.django_db
+def test_cant_approve_connection_as_seeker(sample_connection, client, log_in_sample_connection_seeker):
+    assert sample_connection.get_status == 'Pending'
+    approved = Connection.get_connections_by_user(sample_connection.seeker.base_user, ConnectionType.APPROVED)
+    assert approved.count() == 0
+    connection_id = sample_connection.id
+    response = client.get(f'/contacts/approve/{connection_id}', follow=True)
+    assert response.status_code == 200
+    approved = Connection.get_connections_by_user(sample_connection.seeker.base_user, ConnectionType.APPROVED)
+    assert approved.count() == 0
+    assert sample_connection.get_status == 'Pending'
+    error_message = list(get_messages(response.wsgi_request))[0]
+    assert error_message.message == "You are not allowed to take action on this connection!"
+
+
+@pytest.mark.django_db
+def test_cant_approve_connection_as_other_owner(sample_connection, client, make_apartment):
+    assert sample_connection.get_status == 'Pending'
+    temp_user = get_user_model().objects.create_user("t6@m.com", "test6", "test", "1995-05-05", "testing")
+    make_apartment(temp_user, "Haickarim 6", 300, 3, 3, "2021-05-05")
+    owner_email = "t6@m.com"
+    owner_pass = "testing"  # credentials for temp_user
+    client.login(email=owner_email, password=owner_pass)
+    connection_id = sample_connection.id
+    response = client.get(f'/contacts/approve/{connection_id}', follow=True)
+    assert response.wsgi_request.user != sample_connection.apartment.owner
+    assert response.status_code == 200
+    assert sample_connection.get_status == 'Pending'
+    error_message = list(get_messages(response.wsgi_request))[0]
+    assert error_message.message == "You are not allowed to take action on this connection!"
+
+
+@pytest.mark.django_db
+def test_cant_approve_not_pending_connection(sample_connection, client, log_in_sample_connection_apartment):
+    sample_connection.approve()
+    assert sample_connection.get_status == 'Approved'
+    approved = Connection.get_connections_by_user(sample_connection.apartment.owner, ConnectionType.APPROVED)
+    assert approved.count() == 1
+    connection_id = sample_connection.id
+    response = client.get(f'/contacts/approve/{connection_id}', follow=True)
+    assert response.status_code == 200
+    approved = Connection.get_connections_by_user(sample_connection.apartment.owner, ConnectionType.APPROVED)
+    assert approved.count() == 1
+    error_message = list(get_messages(response.wsgi_request))[0]
+    assert error_message.message == "Can't approve this connection!"
+    sample_connection.reject()
+    assert sample_connection.get_status == 'Rejected'
+    response = client.get(f'/contacts/approve/{connection_id}', follow=True)
+    assert response.status_code == 200
+    assert sample_connection.get_status == 'Rejected'
+    approved = Connection.get_connections_by_user(sample_connection.apartment.owner, ConnectionType.APPROVED)
+    assert approved.count() == 0
+    error_message = list(get_messages(response.wsgi_request))[0]
+    assert error_message.message == "Can't approve this connection!"
+
+
+@pytest.mark.django_db
+def test_unvalid_action_on_connection(sample_connection, client, log_in_sample_connection_apartment):
+    assert sample_connection.get_status == 'Pending'
+    connection_id = sample_connection.id
+    response = client.get(f'/contacts/rebase/{connection_id}', follow=True)
+    assert response.status_code == 200
+    assert sample_connection.get_status == 'Pending'
+    error_message = list(get_messages(response.wsgi_request))[0]
+    assert error_message.message == "Invalid connection action!"
