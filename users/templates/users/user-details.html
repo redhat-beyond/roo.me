@@ -1,0 +1,65 @@
+{% extends "main/base_template.html" %}
+{% block content %}
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <h5 class="card-title"><u>Personal information:</u></h5>
+            </div>
+            <div class="col-6" style="text-align: right;">
+                {% if request.user == user %}
+                <a href="{% url 'update-user' %}" class="btn btn-primary">Update</a>
+                {% endif %}
+            </div>
+        </div>
+        <dl class="row">
+            <dt class="col-sm-3">Full Name</dt>
+            <dd class="col-sm-9">{{ user.first_name }} {{ user.last_name }}</dd>
+
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">{{ user.email }}</dd>
+
+            <dt class="col-sm-3">Birth Date</dt>
+            <dd class="col-sm-9">{{ user.birth_date }}</dd>
+        </dl>
+        <div class="col-6">
+            <h5 class="card-title"><u>Hobbies:</u></h5>
+        </div>
+        <dl class="row">
+            {% for hobby in hobbies %}
+            <dt class="col-sm-3"><span class="badge rounded-pill bg-primary">{{hobby.name}}</span></dt>
+            {% endfor %}
+        </dl>
+        <div class="col-6">
+            <h5 class="card-title"><u>Properties:</u></h5>
+        </div>
+        <dl class="row">
+            {% if user.not_smoking %}
+                <dt class="col-sm-3"><span class="badge rounded-pill bg-secondary"><i class="fas fa-smoking-ban"></i><small> No smoking</small></span></dt>
+            {% endif %}
+            {% if user.pets_allowed %}
+                <dt class="col-sm-3"><span class="badge rounded-pill bg-secondary"><i class="fas fa-paw"></i><small> Pet friendly</small></span></dt>
+            {% endif %}
+            {% if user.air_conditioner %}
+                <dt class="col-sm-3"><span class="badge rounded-pill bg-secondary"><i class="fas fa-fan"></i><small> A/C</small></span></dt>
+            {% endif %}
+            {% if user.balcony %}
+                <dt class="col-sm-3"><span class="badge rounded-pill bg-secondary"><i class="fas fa-sun"></i><small> Balcony</small></span></dt>
+            {% endif %}
+            {% if user.elevator %}
+                <dt class="col-sm-3"><span class="badge rounded-pill bg-secondary"><i class="fas fa-arrow-alt-circle-up"></i><small> Elevator</small></span></dt>
+            {% endif %}
+            {% if user.long_term %}
+                <dt class="col-sm-3"><span class="badge rounded-pill bg-secondary"><i class="fas fa-file-signature"></i><small> Long Term</small></span></dt>
+            {% endif %}
+            {% if user.immediate_entry %}
+                <dt class="col-sm-3"><span class="badge rounded-pill bg-secondary"><i class="fas fa-calendar-day"></i><small> Imediate Entry</small></span></dt>
+            {% endif %}
+        </dl>
+        <small class="text-muted">joined in {{ user.date_joined }}</small>
+    </div>
+    </div>
+</div>
+
+{% endblock %}
