@@ -42,7 +42,7 @@ def register_apartment(request):
             apartment_profile = apartment_creation_form.save(commit=False)
             apartment_profile.owner = new_owner
             apartment_profile.save()
-            return redirect('home')
+            return redirect('login')
     else:
         user_creation_form = UserCreationForm()
         apartment_creation_form = ApartmentCreationForm()
