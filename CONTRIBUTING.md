@@ -2,6 +2,13 @@
 
 Thank you for supporting roo.me and looking for ways to help. Please note that some conventions here might be a bit different than what you are used to, even if you have contributed to other open source projects before. Reading this document will help you save time and work effectively with the developers and other contributors.
 
+## Setting up
+
+Before contributing to roo.me, make sure you set up the development environment by downloading the following:
+1. Vagrant
+2. VitualBox (or any other hypervisor)
+
+Now, a development environment will automatically be set up for you when typing `vagrant up` in the directory of the repository.
 
 
 ## Issues
@@ -26,7 +33,7 @@ Thank you for supporting roo.me and looking for ways to help. Please note that s
 
 Try to keep pull requests as focused as possible on a single feature/issue, big changes are significantly less likely to be accepted.
 
-Try not to take on too much at once. As a first-time contributor, we  recommend starting with small and simple PRs in order to become familiar with the codebase. Most of the work should go into discovering which three lines need to change rather than writing the code.
+Try not to take on too much at once. As a first-time contributor, we recommend starting with small and simple PRs in order to become familiar with the codebase. Most of the work should go into discovering which three lines need to change rather than writing the code.
 
 ### We have a template
 
@@ -44,4 +51,6 @@ We have also set up Flake8 to ensure that our style guides are being followed.
 
 ### Submit finished and well-tested pull requests
 
-Please do not submit pull requests that are still a work in progress. Pull requests should be thoroughly tested and ready to merge before  they are submitted.
+Please do not submit pull requests that are still a work in progress. Pull requests should be thoroughly tested and ready to merge before they are submitted.
+
+To test your code, run `pipenv run pytest` while inside the Vagrant machine. Make sure you add your tests too.
