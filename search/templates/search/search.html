@@ -1,11 +1,24 @@
 {% extends "main/base_template.html" %}
+{% load crispy_forms_tags %}
 
-{% block title %}
-    Roo.me - Search
+{% block title %} 
+   Roo.me - Search
 {% endblock %}
 
-
 {% block content %}
-<h1>Search mechanism - Apartment oriented<br>
-Coming Soon</h1>
+<div>
+    <h1>Hey {{ loggedUser.first_name }}!</h1>
+    <h2>Search for apartments now!</h2>
+</div>
+<div> 
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            {{ searchForm|crispy }}
+            <button type="submit">Search!</button>
+        </fieldset>
+    </form>
+    <h8>*This preferences are temporary and can be modified.</h8>
+
+</div>
 {% endblock %}
