@@ -69,6 +69,13 @@
     </div>
   </nav>
 
+  <!--MEASSAGE BAR-->  
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{message.tags}}">{{message}}</div>
+    {% endfor %}
+  {% endif %}
+
   <!--CONTENT-->
   <main class="row main-body">
     <div class="col-md-2">

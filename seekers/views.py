@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from main.decorators import not_logged_in_required
 from users.forms import UserCreationForm, QualitiesForm
 from .forms import SeekerCreationForm, SeekerUpdateForm
@@ -16,6 +17,7 @@ def register_seeker(request):
             seeker_profile = seeker_creation_form.save(commit=False)
             seeker_profile.base_user = new_base_user
             seeker_profile.save()
+            messages.success(request, f"Seeker profile {new_base_user} created successfully! You can log in now.")
             return redirect('login')
     else:
         user_creation_form = UserCreationForm()

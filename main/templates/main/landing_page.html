@@ -3,11 +3,22 @@
 <html>
 <head>
     <title>roo.me - Start now!</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
 </head>
 
 <body>
+    
     <section>
+        <!--MEASSAGE BAR-->  
+        {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{message.tags}}">{{message}}</div>
+            {% endfor %}
+        {% endif %}
+
         <div class="text-box">
             <h1>Finding great roomates to live with<br>shouldn’t be hard.</h1>
             <a class="btn btn-full" href="{% url 'register' %}">Start now</a>
