@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from apartments.views import owner_home
 
 
 def index(request):
@@ -16,9 +17,7 @@ def home(request):
             function that will render the homepage for the seeker.'''
         return render(request, 'main/home.html')
     elif request.user.is_owner:
-        ''' TODO: delete current render and create a render_owner_home
-            function that will render the homepage for the owner.'''
-        return render(request, 'main/home.html')
+        return owner_home(request)
     else:
         return render(request, 'main/landing_page.html')
 
