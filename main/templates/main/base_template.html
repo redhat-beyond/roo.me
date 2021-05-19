@@ -40,27 +40,29 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Search</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              Account
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">My Profile</a></li>
-              <li><a class="dropdown-item" href="#">Update Profile</a></li>
-              <li><a class="dropdown-item" href="#">Change Password</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              {% if request.user.is_seeker %}
-              <li><a class="dropdown-item" href="#">Update Search Targets</a></li>
-              {% elif request.user.is_owner %}
-              <li><a class="dropdown-item" href="{% url 'apartment-details' apartment_id=request.user.id %}">My
-                  Apartment</a></li>
-              <li><a class="dropdown-item" href="{% url 'apartment-update' %}">Update Apartment Details</a></li>
-              {% endif %}
-            </ul>
-          </li>
+          {% if request.user.is_authenticated %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Account
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'user-details' user_id=request.user.id %}">My Profile</a></li>
+                <li><a class="dropdown-item" href="{% url 'update-user' %}">Update Profile</a></li>
+                <li><a class="dropdown-item" href="{% url 'change-password' %}">Change Password</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                {% if request.user.is_seeker %}
+                <li><a class="dropdown-item" href="#">Update Search Targets</a></li>
+                {% elif request.user.is_owner %}
+                <li><a class="dropdown-item" href="{% url 'apartment-details' apartment_id=request.user.id %}">My
+                    Apartment</a></li>
+                <li><a class="dropdown-item" href="{% url 'apartment-update' %}">Update Apartment Details</a></li>
+                {% endif %}
+              </ul>
+            </li>
+          {% endif %}
         </ul>
         {% endblock %}
       </div>
