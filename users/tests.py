@@ -162,3 +162,17 @@ def test_change_password_view(client, user_model):
     client.login(email='email@address.com', password='password')
     response = client.get(url)
     assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_user_details_valid_id_view(client, user_model):
+    path = f'/users/{user_model.id}/details'
+    response = client.get(path)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_user_details_not_valid_id_view(client):
+    path = '/users/0/details'
+    response = client.get(path)
+    assert response.status_code == 302

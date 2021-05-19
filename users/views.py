@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
+from .models import User
 from .forms import UserUpdateForm
 
 
@@ -32,3 +33,15 @@ def password_change(request):
     return render(request, 'users/change-password.html', {
         'form': password_change_form
     })
+
+
+def user_details(request, user_id):
+    user_to_view = User.objects.filter(id=user_id).first()
+    if not user_to_view:
+        return redirect('home')
+    else:
+        hobbies_of_user = user_to_view.hobbies.all()
+        return render(request, 'users/user-details.html', {
+            'user': user_to_view,
+            'hobbies': hobbies_of_user,
+            })
