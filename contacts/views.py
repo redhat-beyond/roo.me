@@ -44,3 +44,29 @@ def add_new_contact(request, apartment_id):
                 messages.warning(request, "You have already sent a connection request to this user!")
 
     return redirect('contact-page')
+
+
+@login_required
+def approve_or_reject_contact(request, action, connection_id):
+    connection_to_action = Connection.get_connection_by_id(connection_id)
+    if connection_to_action is None:
+        messages.warning(request, "Invalid connection request!")
+    else:
+        connection_owner = connection_to_action.apartment.owner
+        connection_seeker = connection_to_action.seeker.base_user
+        if request.user != connection_owner:
+            messages.warning(request, "You are not allowed to take action on this connection!")
+        else:
+            if action == 'approve':
+                try:
+                    connection_to_action.approve()
+                    messages.success(request, f"You can now contact {connection_seeker.first_name}!")
+                except ValueError:
+                    messages.warning(request, "Can't approve this connection!")
+            elif action == 'reject':
+                connection_to_action.reject()
+                messages.success(request, f"{connection_seeker.first_name} won't bother you anymore!")
+            else:
+                messages.warning(request, "Invalid connection action!")
+
+    return redirect('contact-page')
