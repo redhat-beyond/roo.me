@@ -48,3 +48,10 @@ class QualitiesForm(forms.ModelForm):
             'long_term',
             'immediate_entry'
         ]
+
+
+class UserUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('email', 'first_name', 'last_name', 'birth_date',)
