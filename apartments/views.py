@@ -5,7 +5,20 @@ from main.decorators import not_logged_in_required
 from users.forms import UserCreationForm, QualitiesForm
 from .forms import ApartmentDetailsUpdateForm, ApartmentCreationForm
 from .models import Apartment
+from contacts.models import Connection, ConnectionType
 import main
+
+
+@login_required
+def owner_home(request):
+    context = {
+        'user': request.user,
+        'apartment': request.user.apartment,
+        'pending_connections': Connection.get_connections_by_user(
+            request.user, ConnectionType.PENDING),
+    }
+
+    return render(request, 'apartments/owner-homepage.html', context)
 
 
 @login_required
