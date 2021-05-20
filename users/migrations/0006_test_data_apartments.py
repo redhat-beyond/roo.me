@@ -6,7 +6,7 @@ from apartments.models import Apartment, City
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0008_test_data_seekers'),
+        ('users', '0005_test_data_seekers'),
     ]
 
     def generate_apartment_data(apps, schema_editor):

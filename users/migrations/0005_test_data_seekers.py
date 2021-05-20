@@ -7,7 +7,8 @@ from apartments.models import City
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0007_test_data_users'),
+        ('seekers', '0001_initial'),
+        ('users', '0004_test_data_users'),
     ]
 
     def generate_seeker_data(apps, schema_editor):

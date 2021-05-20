@@ -6,8 +6,8 @@ from contacts.models import Connection
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('contacts', '0005_clean_test_data'),
-        ('users', '0009_test_data_apartments'),
+        ('contacts', '0002_initial'),
+        ('users', '0006_test_data_apartments'),
     ]
 
     def generate_connection_data(apps, schema_editor):

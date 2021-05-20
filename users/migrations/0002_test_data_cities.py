@@ -4,7 +4,8 @@ from apartments.models import City
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('users', '0004_clean_test_data'),
+        ('users', '0001_initial'),
+        ('apartments', '0001_initial'),
     ]
 
     def generate_city_data(apps, schema_editor):
