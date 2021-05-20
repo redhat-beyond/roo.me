@@ -66,7 +66,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
-    hobbies = models.ManyToManyField(Hobby)
+    hobbies = models.ManyToManyField(Hobby, blank=True)
+    image_url = models.TextField(blank=True)
 
     not_smoking = models.BooleanField(default=False, blank=True)
     pets_allowed = models.BooleanField(default=False, blank=True)
