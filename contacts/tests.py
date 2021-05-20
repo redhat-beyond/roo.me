@@ -1,5 +1,5 @@
 import pytest
-from .models import Connection, ConnectionType
+from .models import Connection, ConnectionType, Message
 from apartments.models import Apartment
 from django.contrib.auth import get_user_model
 from django.db import transaction, IntegrityError
@@ -277,3 +277,16 @@ def test_unvalid_action_on_connection(sample_connection, client, log_in_sample_c
     assert sample_connection.get_status == 'Pending'
     error_message = list(get_messages(response.wsgi_request))[0]
     assert error_message.message == "Invalid connection action!"
+
+
+@pytest.mark.django_db
+def test_get_chat_messages(sample_connection):
+    assert sample_connection.get_chat_messages().count() == 0
+    seeker_user = sample_connection.seeker.base_user
+    owner_user = sample_connection.apartment.owner
+    msg = Message(connection=sample_connection, author=seeker_user, text="hi")
+    msg.save()
+    msg = Message(connection=sample_connection, author=owner_user, text="hello")
+    msg.save()
+    assert sample_connection.get_chat_messages().count() == 2
+    assert sample_connection.get_chat_messages().last().text == "hello"
