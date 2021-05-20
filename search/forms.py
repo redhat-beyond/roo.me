@@ -1,6 +1,6 @@
 from django import forms
 from seekers.models import Seeker
-from django.core.validators import MinValueValidator    
+from django.core.validators import MinValueValidator
 
 
 class SearchForm(forms.ModelForm):
