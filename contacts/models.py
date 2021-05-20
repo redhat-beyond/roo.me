@@ -1,5 +1,7 @@
 from django.db import models
 from datetime import date
+from django.utils import timezone
+from users.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -57,3 +59,13 @@ class Connection(models.Model):
 
     class Meta:
         unique_together = ['apartment', 'seeker']
+
+
+class Message(models.Model):
+    connection = models.ForeignKey(Connection, related_name='messages', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, related_name='user_messages', on_delete=models.CASCADE)
+    text = models.TextField(max_length=300)
+    date_written = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.text
