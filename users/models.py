@@ -85,6 +85,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
+    def get_matching_score(self, other_user):
+        intersect = other_user.hobbies.all().intersection(self.hobbies.all())
+        union = other_user.hobbies.all().union(self.hobbies.all())
+        if (len(union) == 0):
+            return 0
+        else:
+            return len(intersect) / len(union)
+
     @property
     def is_seeker(self):
         try:
