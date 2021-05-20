@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import transaction, IntegrityError
-from .forms import UserCreationForm, UserUpdateForm
+from .forms import UserCreationForm, UserUpdateForm, QualitiesForm, HobbyForm
 from django.urls import reverse
 import pytest
 
@@ -176,3 +176,15 @@ def test_user_details_not_valid_id_view(client):
     path = '/users/0/details'
     response = client.get(path)
     assert response.status_code == 302
+
+
+@pytest.mark.django_db
+def test_empty_qualities_form_is_valid():
+    empty_qualities_form = QualitiesForm(data={})
+    assert empty_qualities_form.is_valid
+
+
+@pytest.mark.django_db
+def test_empty_hobbies_form_is_valid():
+    empty_hobbies_form = HobbyForm(data={})
+    assert empty_hobbies_form.is_valid

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from main.decorators import not_logged_in_required
-from users.forms import UserCreationForm, QualitiesForm
+from users.forms import UserCreationForm, QualitiesForm, HobbyForm
 from .forms import ApartmentDetailsUpdateForm, ApartmentCreationForm
 from .models import Apartment
 from contacts.models import Connection, ConnectionType
@@ -51,20 +51,37 @@ def register_apartment(request):
     if request.method == 'POST':
         user_creation_form = UserCreationForm(request.POST)
         apartment_creation_form = ApartmentCreationForm(request.POST)
+        hobby_update_form = HobbyForm(request.POST)
+        qualities_form = QualitiesForm(request.POST)
 
         if apartment_creation_form.is_valid() and user_creation_form.is_valid():
-            new_owner = user_creation_form.save(commit=True)
+
+            new_owner = user_creation_form.save(commit=False)
             apartment_profile = apartment_creation_form.save(commit=False)
-            apartment_profile.owner = new_owner
-            apartment_profile.save()
-            messages.success(request, f"Owner profile {new_owner} created successfully! You can log in now.")
-            return redirect('login')
+            hobby_update_form = HobbyForm(request.POST, instance=new_owner)
+            qualities_form = QualitiesForm(request.POST, instance=new_owner)
+
+            if hobby_update_form.is_valid() and qualities_form.is_valid():
+                new_owner.save()
+                apartment_profile.owner = new_owner
+                apartment_profile.save()
+                hobby_update_form.save(commit=True)
+                qualities_form.save(commit=True)
+                messages.success(request, f"Owner profile {new_owner} created successfully! You can log in now.")
+                return redirect('login')
+            else:
+                hobby_update_form = HobbyForm(request.POST)
+                qualities_form = QualitiesForm(request.POST)
     else:
         user_creation_form = UserCreationForm()
         apartment_creation_form = ApartmentCreationForm()
+        hobby_update_form = HobbyForm()
+        qualities_form = QualitiesForm()
     return render(request, 'apartments/apartment_register.html', {
         "uform": user_creation_form,
         "aform": apartment_creation_form,
+        "hform": hobby_update_form,
+        "qform": qualities_form,
         })
 
 

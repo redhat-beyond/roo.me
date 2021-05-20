@@ -1,5 +1,5 @@
 from django import forms
-from .models import User
+from .models import User, Hobby
 
 
 class UserCreationForm(forms.ModelForm):
@@ -55,3 +55,17 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name', 'birth_date',)
+
+
+class HobbyForm(forms.ModelForm):
+
+    hobbies = forms.ModelMultipleChoiceField(
+        required=False,
+        queryset=Hobby.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        label="",
+    )
+
+    class Meta:
+        model = User
+        fields = ('hobbies',)
