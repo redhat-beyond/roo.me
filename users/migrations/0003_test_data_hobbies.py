@@ -4,7 +4,7 @@ from users.models import Hobby
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('users', '0005_test_data_cities'),
+        ('users', '0002_test_data_cities'),
     ]
 
     def generate_hobby_data(apps, schema_editor):
