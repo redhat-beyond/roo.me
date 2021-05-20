@@ -4,13 +4,22 @@
 {% block title %}Roo.me - Register as owner{% endblock %}
 
 {% block content %}
-<form method="POST">
-    {% csrf_token %}
-    <fieldset class="form-group">
-        {{ uform|crispy }}
-        {{ aform|crispy }}
-        <button type="submit">Register</button>
-    </fieldset>
-    
-</form>
+    <div class="card">
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-2">Personal data:</legend>
+                    {{ uform|crispy }}
+                    <legend class="border-bottom mb-2 mt-4">Enter the apartment information:</legend>
+                    {{ aform|crispy }}
+                    <legend class="border-bottom mb-2 mt-4">Pick some qualities for the apartment:</legend>
+                    {{ qform|crispy }}
+                    <legend class="border-bottom mb-2 mt-4">Pick some hobbies:</legend>
+                    {{ hform|crispy }}
+                    <button type="submit">Register</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
 {% endblock %}

@@ -4,13 +4,22 @@
 {% block title %}Roo.me - Register as Seeker{% endblock %}
 
 {% block content %}
-<form method="POST">
-    {% csrf_token %}
-    <fieldset class="form-group">
-        {{ uform|crispy }}
-        {{ sform|crispy }}
-        <button type="submit">Register</button>
-    </fieldset>
-
-</form>
+    <div class="card">
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-2">Personal data:</legend>
+                    {{ uform|crispy }}
+                    <legend class="border-bottom mb-2 mt-4">Enter information about the apartments you seek:</legend>
+                    {{ sform|crispy }}
+                    <legend class="border-bottom mb-2 mt-4">Pick some qualities you want the apartment to have:</legend>
+                    {{ qform|crispy }}
+                    <legend class="border-bottom mb-2 mt-4">Pick some hobbies:</legend>
+                    {{ hform|crispy }}
+                    <button type="submit">Register</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
 {% endblock %}
