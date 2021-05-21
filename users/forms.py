@@ -5,6 +5,7 @@ from .models import User, Hobby
 class UserCreationForm(forms.ModelForm):
     password1 = forms.CharField(label="Password", widget=forms.PasswordInput())
     password2 = forms.CharField(label="Password confirmation", widget=forms.PasswordInput())
+    birth_date = forms.DateField(label='Birthday')
 
     class Meta:
         model = User
@@ -51,6 +52,7 @@ class QualitiesForm(forms.ModelForm):
 
 
 class UserUpdateForm(forms.ModelForm):
+    birth_date = forms.DateField(label='Birthday')
 
     class Meta:
         model = User
