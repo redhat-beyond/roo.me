@@ -70,3 +70,35 @@ def approve_or_reject_contact(request, action, connection_id):
                 messages.warning(request, "Invalid connection action!")
 
     return redirect('contact-page')
+
+
+@login_required
+def chat(request, connection_id):
+    chat_connection = Connection.get_connection_by_id(connection_id)
+    if chat_connection is None:
+        messages.warning(request, "Invalid request!")
+    else:
+        connection_owner = chat_connection.apartment.owner
+        connection_seeker = chat_connection.seeker.base_user
+        if ((request.user != connection_owner) and (request.user != connection_seeker)):
+            messages.warning(request, "You are not allowed to enter this chat!")
+        elif chat_connection.status != 'A':
+            messages.warning(request, "This chat is yet to be approved!")
+        else:
+            chat_messages = chat_connection.get_chat_messages()
+            if request.user.is_seeker:
+                recent_contacts = Connection.objects.filter(
+                    seeker__base_user=request.user,
+                    status=ConnectionType.APPROVED
+                )[:7]
+            else:
+                recent_contacts = Connection.objects.filter(
+                    apartment__owner=request.user,
+                    status=ConnectionType.APPROVED
+                )[:7]
+            context = {
+                'chat_messages': chat_messages,
+                'recent_contacts': recent_contacts,
+            }
+            return render(request, 'contacts/chat.html', context)
+    return redirect('contact-page')
