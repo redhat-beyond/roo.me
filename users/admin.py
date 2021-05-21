@@ -14,7 +14,7 @@ class UserAdminConfig(UserAdmin):
     fieldsets = (
         ('Overview', {'fields': ('email', 'first_name', 'last_name',
                                  'birth_date', 'date_joined',
-                                 'is_active', 'hobbies')}),
+                                 'is_active', 'hobbies', 'image_url')}),
         ('Permissions', {'fields': ('is_staff', 'is_superuser',)}),
         ('properties', {'fields': ('not_smoking', 'pets_allowed',
                                    'air_conditioner', 'balcony',
@@ -28,7 +28,7 @@ class UserAdminConfig(UserAdmin):
             'fields': ('email', 'password1', 'password2',
                        'first_name', 'last_name', 'birth_date',
                        'is_staff', 'is_active',
-                       'is_superuser', 'hobbies',
+                       'is_superuser', 'hobbies', 'image_url',
                        'not_smoking', 'pets_allowed',
                        'air_conditioner', 'balcony',
                        'elevator', 'long_term',
