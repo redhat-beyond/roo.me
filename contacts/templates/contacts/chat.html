@@ -8,27 +8,33 @@
 {% block content %}
 
 <div class="container">
-  <h3 class=" text-center">Chat</h3>
+  {% if user.is_seeker %}
+    <h3 class=" text-center">Chat with {{chat_messages.first.connection.apartment.owner.first_name}}</h3>
+  {% else %}
+    <h3 class=" text-center">Chat with {{chat_messages.first.connection.seeker.base_user.first_name}}</h3>
+  {% endif %}
   <div class="messaging">
         <div class="inbox_msg">
           <div class="inbox_people">
             <div class="headind_srch">
               <div class="recent_heading">
-                <h4>Recent Connections</h4>
+                <h4>Recent Chats</h4>
               </div>
             </div>
             <div class="inbox_chat">
               {% for contact in recent_contacts %}
-                <a href="#"><div class="chat_list">
+                <a href="/contacts/chat/{{contact.id}}"><div class="chat_list">
                   <div class="chat_people">
                       {% if user.is_seeker %}
                         <div class="chat_img"> <img src="{{contact.apartment.owner.image_url}}" alt="nopic"> </div>
                         <div class="chat_ib">
-                        <h5>{{ contact.apartment.owner.first_name }} {{ contact.apartment.owner.last_name }}</h5>
+                        <h5>{{ contact.apartment.owner.first_name }} {{ contact.apartment.owner.last_name }}
+                          <span class="chat_date">{{contact.messages.last.date_written}}</span></h5>
                       {% else %}
                         <div class="chat_img"> <img src="{{contact.seeker.base_user.image_url}}" alt="nopic"> </div>
                         <div class="chat_ib">
-                        <h5>{{ contact.seeker.base_user.first_name }} {{ contact.seeker.base_user.last_name }}</h5>
+                        <h5>{{ contact.seeker.base_user.first_name }} {{ contact.seeker.base_user.last_name }}
+                          <span class="chat_date">{{contact.messages.last.date_written}}</span></h5>
                       {% endif %}
                       <p>{{ contact.get_chat_messages.last }}</p>
                     </div>
@@ -63,12 +69,15 @@
               {% endfor %}
               
             </div>
-            <div class="type_msg">
-              <div class="input_msg_write">
-                <input type="text" class="write_msg" placeholder="Type a message" />
-                <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+            <form method="post">
+            {% csrf_token %}
+              <div class="type_msg">
+                <div class="input_msg_write">
+                  <input type="text" name="msg_sent" class="write_msg" placeholder="Type a message" />
+                  <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                </div>
               </div>
-            </div>
+          </form>
           </div>
         </div>
         
