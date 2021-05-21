@@ -290,3 +290,47 @@ def test_get_chat_messages(sample_connection):
     msg.save()
     assert sample_connection.get_chat_messages().count() == 2
     assert sample_connection.get_chat_messages().last().text == "hello"
+
+
+@pytest.mark.django_db
+def test_chat_page_validity(sample_connection, client, log_in_sample_connection_apartment):
+    sample_connection.approve()
+    connection_id = sample_connection.id
+    response = client.get(f'/contacts/chat/{connection_id}')
+    assert response.status_code == 200
+    assert b"Recent Connections" in response.content
+
+
+@pytest.mark.django_db
+def test_cant_chat_unexisting_connection(client, log_in_sample_connection_apartment):
+    unexisting_id = Connection.objects.last().id + 1
+    response = client.get(f'/contacts/chat/{unexisting_id}', follow=True)
+    assert response.status_code == 200
+    error_message = list(get_messages(response.wsgi_request))[0]
+    assert error_message.message == "Invalid request!"
+
+
+@pytest.mark.django_db
+def test_cant_chat_without_connection(sample_connection, client, make_apartment):
+    sample_connection.approve()
+    temp_user = get_user_model().objects.create_user("t7@m.com", "test7", "test", "1995-05-05", "testing")
+    make_apartment(temp_user, "Haickarim 6", 300, 3, 3, "2021-05-05")
+    owner_email = "t7@m.com"
+    owner_pass = "testing"  # credentials for temp_user
+    client.login(email=owner_email, password=owner_pass)
+    connection_id = sample_connection.id
+    response = client.get(f'/contacts/chat/{connection_id}', follow=True)
+    assert response.wsgi_request.user != sample_connection.apartment.owner
+    assert response.status_code == 200
+    error_message = list(get_messages(response.wsgi_request))[0]
+    assert error_message.message == "You are not allowed to enter this chat!"
+
+
+@pytest.mark.django_db
+def test_cant_chat_not_approved_connection(sample_connection, client, log_in_sample_connection_apartment):
+    assert sample_connection.get_status == 'Pending'
+    connection_id = sample_connection.id
+    response = client.get(f'/contacts/chat/{connection_id}', follow=True)
+    assert response.status_code == 200
+    error_message = list(get_messages(response.wsgi_request))[0]
+    assert error_message.message == "This chat is yet to be approved!"
