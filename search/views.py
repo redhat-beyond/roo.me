@@ -12,12 +12,10 @@ def search(request):
         if search_form.is_valid():
             form = SearchForm(request.POST)
             filtered_apartments = get_filtered_apartments(form)
-            context = {
-                'filteredApartments': filtered_apartments,
-                'loggedUser': request.user
-            }
-            return render(request, 'search/results.html', context)
+            results = True
     else:
+        filtered_apartments = None
+        results = None
         if request.user.is_owner is True:
             search_form = SearchForm(
                 instance=request.user.apartment,
@@ -38,7 +36,9 @@ def search(request):
             })
     context = {
         'searchForm': search_form,
-        'loggedUser': request.user
+        'loggedUser': request.user,
+        'filteredApartments': filtered_apartments,
+        'showResults': results
     }
     return render(request, 'search/search.html', context)
 
