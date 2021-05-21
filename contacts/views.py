@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Connection, ConnectionType
+from .models import Connection, ConnectionType, Message
 from apartments.models import Apartment
 from django.db import IntegrityError, transaction
 from django.core.exceptions import ObjectDoesNotExist
@@ -85,17 +85,28 @@ def chat(request, connection_id):
         elif chat_connection.status != 'A':
             messages.warning(request, "This chat is yet to be approved!")
         else:
+            if request.method == 'POST':
+                msg = request.POST.get("msg_sent", "")
+                if msg == "":
+                    messages.warning(request, "Your message was empty!")
+                else:
+                    Message(connection=chat_connection, author=request.user, text=msg).save()
             chat_messages = chat_connection.get_chat_messages()
             if request.user.is_seeker:
-                recent_contacts = Connection.objects.filter(
+                approved_contacts = Connection.objects.filter(
                     seeker__base_user=request.user,
-                    status=ConnectionType.APPROVED
-                )[:7]
+                    status=ConnectionType.APPROVED,
+                ).exclude(messages=None)
             else:
-                recent_contacts = Connection.objects.filter(
+                approved_contacts = Connection.objects.filter(
                     apartment__owner=request.user,
-                    status=ConnectionType.APPROVED
-                )[:7]
+                    status=ConnectionType.APPROVED,
+                ).exclude(messages=None)
+            recent_contacts = sorted(
+                approved_contacts,
+                key=lambda obj: obj.get_chat_messages().last().date_written,
+                reverse=True
+            )[:30]
             context = {
                 'chat_messages': chat_messages,
                 'recent_contacts': recent_contacts,

@@ -298,7 +298,7 @@ def test_chat_page_validity(sample_connection, client, log_in_sample_connection_
     connection_id = sample_connection.id
     response = client.get(f'/contacts/chat/{connection_id}')
     assert response.status_code == 200
-    assert b"Recent Connections" in response.content
+    assert b"Recent Chats" in response.content
 
 
 @pytest.mark.django_db
@@ -334,3 +334,30 @@ def test_cant_chat_not_approved_connection(sample_connection, client, log_in_sam
     assert response.status_code == 200
     error_message = list(get_messages(response.wsgi_request))[0]
     assert error_message.message == "This chat is yet to be approved!"
+
+
+@pytest.mark.django_db
+def test_send_new_message(sample_connection, client, log_in_sample_connection_apartment):
+    sample_connection.approve()
+    assert sample_connection.get_chat_messages().count() == 0
+    connection_id = sample_connection.id
+    response = client.get(f'/contacts/chat/{connection_id}', follow=True)
+    msg = {'msg_sent': "Hello!"}
+    response = client.post(f'/contacts/chat/{connection_id}', msg, follow=True)
+    assert response.status_code == 200
+    assert sample_connection.get_chat_messages().count() == 1
+    assert sample_connection.get_chat_messages().last().text == "Hello!"
+
+
+@pytest.mark.django_db
+def test_cant_send_empty_message(sample_connection, client, log_in_sample_connection_apartment):
+    sample_connection.approve()
+    assert sample_connection.get_chat_messages().count() == 0
+    connection_id = sample_connection.id
+    response = client.get(f'/contacts/chat/{connection_id}', follow=True)
+    msg = {'msg_sent': ""}
+    response = client.post(f'/contacts/chat/{connection_id}', msg, follow=True)
+    assert response.status_code == 200
+    assert sample_connection.get_chat_messages().count() == 0
+    error_message = list(get_messages(response.wsgi_request))[0]
+    assert error_message.message == "Your message was empty!"
