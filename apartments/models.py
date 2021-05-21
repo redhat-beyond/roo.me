@@ -22,7 +22,7 @@ class Apartment(models.Model):
     start_date = models.DateField()
     about = models.TextField(blank=True)
     is_relevant = models.BooleanField(default=True, blank=True)
-    image_url = models.TextField(blank=True)
+    image_url = models.TextField(blank=True, default='../../static/img/default_apartment.png')
 
     def __str__(self):
         return f"Owner:{self.owner}, Address:{self.address}, City:{self.city}"
