@@ -5,7 +5,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-6">
-                <h5 class="card-title"><u>Personal information:</u></h5>
+                <legend class="border-bottom mb-2">Personal information:</legend>
             </div>
             <div class="col-6" style="text-align: right;">
                 {% if request.user == user %}
@@ -23,17 +23,13 @@
             <dt class="col-sm-3">Birthday</dt>
             <dd class="col-sm-9">{{ user.birth_date }}</dd>
         </dl>
-        <div class="col-6">
-            <h5 class="card-title"><u>Hobbies:</u></h5>
-        </div>
+        <legend class="border-bottom mb-2 mt-4">Hobbies:</legend>
         <dl class="row">
             {% for hobby in hobbies %}
             <dt class="col-sm-3"><span class="badge rounded-pill bg-primary">{{hobby.name}}</span></dt>
             {% endfor %}
         </dl>
-        <div class="col-6">
-            <h5 class="card-title"><u>Preferences:</u></h5>
-        </div>
+        <legend class="border-bottom mb-2 mt-4">Preferences:</legend>
         <dl class="row">
             {% if user.not_smoking %}
                 <dt class="col-sm-3"><span class="badge rounded-pill bg-secondary"><i class="fas fa-smoking-ban"></i><small> No smoking</small></span></dt>
