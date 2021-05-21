@@ -2,20 +2,6 @@
 
 {% block title %}Roo.me - Home page{% endblock %}
 
-{% block sidebar %}
-  <div class="card shadow p-3 mb-5 bg-white rounded">
-    <img src="../../static/img/user-account.png" alt="roo.me" id="logo">
-      <div class="card-body">
-        <h5 class="card-title username">Welcome, {{seeker.first_name}}!</h5>
-        <h6 class="card-subtitle text-muted">Recent Connections</h6>
-        <ul class="list-group list-group-flush recent-connections">
-        </ul>
-        <br/>
-        <a href="connections.html" class="btn btn-primary">Connections</a>
-      </div>
-  </div>
-{% endblock %}
-
 {% block content %}
   <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for apartment in apartments %}
