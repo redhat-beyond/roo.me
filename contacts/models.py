@@ -35,6 +35,9 @@ class Connection(models.Model):
         self.status = ConnectionType.REJECTED
         self.save()
 
+    def get_chat_messages(self):
+        return self.messages.all()
+
     @property
     def get_status(self):
         return self.status.label
