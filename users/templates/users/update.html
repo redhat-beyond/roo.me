@@ -6,8 +6,10 @@
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">User Settings:</legend>
+                <legend class="border-bottom mb-2">User Settings:</legend>
                 {{ settings_form|crispy }}
+                <legend class="border-bottom mb-2 mt-4">Hobbies:</legend>
+                {{ hobby_form|crispy }}
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-primary mt-3" type="submit">Update</button>
