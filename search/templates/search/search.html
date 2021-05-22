@@ -14,7 +14,7 @@
             {% csrf_token %}
             <fieldset class="form-group">
                 {{ searchForm|crispy }}
-                <button type="submit">Search!</button>
+                <button class="btn btn-primary mt-3" type="submit">Search!</button>
             </fieldset>
         </form>
         <h8>*Preferences are temporary and can be modified.</h8>

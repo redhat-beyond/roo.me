@@ -6,9 +6,9 @@
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-2">User Settings:</legend>
+                <legend class="border-bottom mb-2">User information</legend>
                 {{ settings_form|crispy }}
-                <legend class="border-bottom mb-2 mt-4">Hobbies:</legend>
+                <legend class="border-bottom mb-2 mt-4">Your hobbies</legend>
                 {{ hobby_form|crispy }}
             </fieldset>
             <div class="form-group">
