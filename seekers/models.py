@@ -51,7 +51,7 @@ class Seeker(models.Model):
         if self.base_user.elevator:
             filter_args['owner__elevator'] = True
         if self.base_user.long_term:
-            filter_args['ownner__long_term'] = True
+            filter_args['owner__long_term'] = True
         if self.base_user.immediate_entry:
             filter_args['owner__immediate_entry'] = True
 
