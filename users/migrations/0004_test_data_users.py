@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
              '1994-01-01', default_password, random.choice(PROFILE_IMAGE_URL_LIST)),
         ]
 
-        for i in range(2000):
+        for i in range(4000):
             first_name = random.choice(FIRST_NAME_LIST)
             last_name = random.choice(LAST_NAME_LIST)
             email = first_name + last_name + str(i) + "@gmail.com"
@@ -59,7 +59,28 @@ class Migration(migrations.Migration):
                     user.hobbies.add(hobby)
                 user.save()
 
+    def add_user_preferences(apps, schema_editor):
+        with transaction.atomic():
+            users = User.objects.all()
+            for index, user in enumerate(users):
+                if index % 7 == 0:
+                    user.immediate_entry = True
+                elif index % 7 == 1:
+                    user.not_smoking = True
+                elif index % 7 == 2:
+                    user.pets_allowed = True
+                elif index % 7 == 3:
+                    user.air_conditioner = True
+                elif index % 7 == 4:
+                    user.balcony = True
+                elif index % 7 == 5:
+                    user.elevator = True
+                elif index % 7 == 6:
+                    user.long_term = True
+                user.save()
+
     operations = [
         migrations.RunPython(generate_user_data),
         migrations.RunPython(add_user_hobbies),
+        migrations.RunPython(add_user_preferences),
     ]

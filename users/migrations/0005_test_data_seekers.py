@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
                     "-" + str(random.randint(1, 28))
                 Seeker(
                     base_user=user,
-                    city=cities[random.randint(0, 9)],
+                    city=cities[random.randint(0, 5)],
                     start_date=start_date,
                     min_rent=random.randint(1000, 3000),
                     max_rent=random.randint(4000, 5500),

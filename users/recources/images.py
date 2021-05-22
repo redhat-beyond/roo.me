@@ -35,8 +35,6 @@ APARTMENT_IMAGE_URL_LIST = [
     "https://madrich.cz/wp-content/uploads/2019/12/apartments_for_rent_prague.jpg",
     "https://cf.bstatic.com/images/hotel/max1024x768/236/236410405.jpg",
     "https://www.aveliving.com/AVE/media/Property_Images/Florham%20Park/hero/flor-apt-living-(2)-hero.jpg?ext=.jpg",
-    "https://wcsmith.com/wp-content/uploads/2016/01/The-Dahlia-Apartments-Takoma-DC-For-Rent-Studio-Living-Spac\
-        e-1-1024x576.jpg",
     "https://imgcy.trivago.com/c_limit,d_dummy.jpeg,f_auto,h_1300,q_auto,w_2000/itemimages/17/35/1735331_v10.jpeg",
     "https://cf.bstatic.com/images/hotel/max1024x768/236/236410405.jpg",
     "https://cdn.vox-cdn.com/thumbor/zVuv0s-NzoqRQef_zb91-X8sT88=/0x0:1800x1168/1200x800/filters:focal(733x429:102\
