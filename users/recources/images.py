@@ -1,25 +1,23 @@
 PROFILE_IMAGE_URL_LIST = [
-    "https://media.istockphoto.com/photos/young-woman-with-dark-hair-winks-and-wide-open-her-mouth-shooting-on-\
-        picture-id1041748522?k=6&m=1041748522&s=612x612&w=0&h=v6n59Ir1AoKWyAFXX-SOuXN_F4NLKoKbxauTLkxt2sI=",
+    "https://cdn.dxomark.com/wp-content/uploads/medias/post-29213/050_AppleiPhoneXSMax_D\
+        xOMark_Selfie-e1557175226410.jpg",
     "https://cdn.dxomark.com/wp-content/uploads/medias/post-46226/CloserDetailsOutdoor_AppleiPhone11.jpg",
     "https://www.thesun.co.uk/wp-content/uploads/2021/03/NINTCHDBPICT000626846130.jpg",
     "https://dt66ikht21gkc.cloudfront.net/img/selfie/502.jpg",
-    "https://cdn.fastly.picmonkey.com/contentful/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d5877\
-        42a2472/1-intro-photo-final.jpg?w=800&q=70",
-    "https://images.squarespace-cdn.com/content/v1/507328ece4b0b0f8a33e85e8/1555210138817-ABOWNFDA15OQRH4XJGN8/ke17\
-        ZwdGBToddI8pDm48kJ9Vf5x0a7V4oPpXjx7dc1N7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5\
-            QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UaX5h46DTa2zhpD2S4dCqlGPZmkhkBVHbtbQ1eKMXMLsDypYv5Z9qB9WFs-N\
-                jPCfmw/How+to+take+the+perfect+travel+selfie",
+    "https://repeller.com/wp-content/uploads/2017/01/Mirror-Selfie-How-To-Amelia-Man-Repeller_6876.jpg",
+    "https://www.postplanner.com/hubfs/selfie-ideas-to-look-good-2.jpg",
     "https://www.gadgety.co.il/wp-content/themes/main/thumbs/2020/06/iphone-se-selfie-bokeh.jpg",
     "https://upload.wikimedia.org/wikipedia/commons/0/0b/Przyk%C5%82ad_selfie.png",
-    "https://i0.wp.com/techweez.com/wp-content/uploads/2021/04/OPPO-Reno5-F-selfie-scaled.jpg?fit=1920%2C2560&ssl=1",
+    "https://media-cdn.tripadvisor.com/media/photo-s/16/0f/4c/6e/home-selfie.jpg",
     "https://pyxis.nymag.com/v1/imgs/657/bbd/3b7c2597b40bb6a6315014cfe2c83c98bd-118794057-608794096479920-716283783\
         49143.rvertical.w330.jpg",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQhF_XLGxpP2ymuevIUVGPOePd6HFeg_cqZA&usqp=CAU",
+    "https://st2.depositphotos.com/2931363/6263/i/600/depositphotos_62630621-stock-photo-young-man-making-selfie.jpg",
     "https://m-cdn.phonearena.com/images/articles/366756-940/iPhone-12-Pro-IMG-0152.JPG.jpg",
-    "https://live-production.wcms.abc-cdn.net.au/9905bc176eace972a6b67f3d298309c6?impolicy=wcms_crop_resize&cr\
-        opH=499&cropW=750&xPos=0&yPos=184&width=862&height=575",
+    "https://expertphotography.com/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg",
     "https://noticiasdatv.uol.com.br/media/uploads/artigos/lucas-selfie-lanca-podcast-reproducao-instagram.jpg",
+    "https://upload.wikimedia.org/wikipedia/he/c/c3/Yuval-binder-profile-pic.jpg"
+    "https://cdn.theatlantic.com/thumbor/Fm5Qhxa6iljS4KUoXj-SbMsCPrY=/0x7:5184x2923/720x405/medi\
+        a/img/mt/2018/12/RTX6HSPJ/original.jpg",
     "../../static/img/profile1.png",
     "../../static/img/profile2.png",
     "../../static/img/profile3.png",
@@ -34,8 +32,7 @@ PROFILE_IMAGE_URL_LIST = [
 
 APARTMENT_IMAGE_URL_LIST = [
     "https://cf.bstatic.com/images/hotel/max1024x768/197/197179243.jpg",
-    "https://p.bookcdn.com/data/Photos/380x250/8908/890800/890800096/Holiday-Inn-Apartments-photos-Exterio\
-        r-Holiday-Inn-Apartment.JPEG",
+    "https://madrich.cz/wp-content/uploads/2019/12/apartments_for_rent_prague.jpg",
     "https://cf.bstatic.com/images/hotel/max1024x768/236/236410405.jpg",
     "https://www.aveliving.com/AVE/media/Property_Images/Florham%20Park/hero/flor-apt-living-(2)-hero.jpg?ext=.jpg",
     "https://wcsmith.com/wp-content/uploads/2016/01/The-Dahlia-Apartments-Takoma-DC-For-Rent-Studio-Living-Spac\
@@ -45,18 +42,16 @@ APARTMENT_IMAGE_URL_LIST = [
     "https://cdn.vox-cdn.com/thumbor/zVuv0s-NzoqRQef_zb91-X8sT88=/0x0:1800x1168/1200x800/filters:focal(733x429:102\
         1x717)/cdn.vox-cdn.com/uploads/chorus_image/image/63048549/logan_apartments.6.jpg",
     "https://cf.bstatic.com/images/hotel/max1024x768/179/179144245.jpg",
-    "https://p.bookcdn.com/data/Photos/380x250/7767/776741/776741686/Modern-Design-Apartments-Near-The-Beach-By-Hom\
-        y-photos-Exterior-Bright-Sunny-apartment-by-the-sea.JPEG",
+    "https://in.bgu.ac.il/logistics/DocLib/Pages/apartments/27-07-2017_008.jpg",
     "https://wp-tid.zillowstatic.com/streeteasy/2/nyc-apartments-for-500k-cobble-hill-c94fca.jpeg",
     "https://cf.bstatic.com/images/hotel/max1024x768/183/183983982.jpg",
     "https://hiskes-holiday-apartments.co.il/wp-content/uploads/2020/05/20200509_092857-1024x576.jpg",
     "https://renomahotel.com/he/wp-content/uploads/sites/3/2021/04/luxury_apartments_0000_0-29.jpg",
     "https://citylifeapartments.com/wp-content/uploads/2019/11/AYrURI0s-COPY1-HOME.jpg",
-    "https://lh3.googleusercontent.com/proxy/uw_eY8PGumvfbQ3IEiVgiAvdbGMdUPugJzp8w1rSI9ayz5WEj0LxNkAVX1Ks_emSojAPW\
-        e17IvEV-kz_kgrLFVID_YgvRZ8IKBQX3ybvg9AEYOw1cGSDvDZipDqRZCuZpTTyoM2J8dnxaQB2LJbHixED5g",
+    "https://pics.yad2.co.il/Pics/2019/10/20191031111444.jpg",
     "https://www.mo2properties.com/wp-content/uploads/2018/04/image-2018-06-25-1-2-749x460.jpg",
     "https://a.otcdn.com/imglib/hotelfotos/8/362/apartments-in-ha-kerem-tel-aviv-035-20200901141701.jpg",
-    "https://cdngeneral.rentcafe.com/dmslivecafe/3/1232709/Riverstone%20Apartments-5(1).jpg?quality=85&scale=both&",
+    "https://cf.bstatic.com/images/hotel/max1024x768/118/118516857.jpg",
     "../../static/img/apartment1.png",
     "../../static/img/apartment2.png",
     "../../static/img/apartment3.png",
