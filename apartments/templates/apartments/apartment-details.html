@@ -11,9 +11,9 @@
             <div class="col-6" style="text-align: right;">
                 {% if request.user == apartment.owner %}
                 <a href="{% url 'apartment-update' %}" class="btn btn-primary">Update</a>
-                {% elif apartment.is_relevant %}
-                    <a href="/contacts/add/{{apartment.pk}}" class="btn btn-primary">YES <i class="fas fa-check-circle"></i></a>
-                    <a href="/contacts/decline/{{apartment.pk}}" class="btn btn-primary">NO <i class="fas fa-times-circle"></i></a>
+                {% elif apartment.is_relevant and request.user.is_seeker%}
+                <a href="/contacts/add/{{apartment.pk}}" class="btn btn-primary">YES <i class="fas fa-check-circle"></i></a>
+                <a href="/contacts/decline/{{apartment.pk}}" class="btn btn-primary">NO <i class="fas fa-times-circle"></i></a>
                 {% endif %}
 
                 {% if not apartment.is_relevant %}
