@@ -2,6 +2,8 @@ from django.db import migrations, transaction
 from users.models import User
 from seekers.models import Seeker
 from apartments.models import City
+from users.recources.about_data import SEEKER_ABOUT
+import random
 
 
 class Migration(migrations.Migration):
@@ -30,6 +32,26 @@ class Migration(migrations.Migration):
                     num_of_rooms=rooms,
                     about=about).save()
 
+    def generate_more_seeker_data(apps, schema_editor):
+
+        users = User.objects.all()[10:99]
+        cities = City.objects.all()
+
+        with transaction.atomic():
+            for user in users:
+                start_date = "2020-" + str(random.randint(1, 12)) + \
+                    "-" + str(random.randint(1, 28))
+                Seeker(
+                    base_user=user,
+                    city=cities[random.randint(0, 9)],
+                    start_date=start_date,
+                    min_rent=random.randint(1000, 3000),
+                    max_rent=random.randint(4000, 5500),
+                    num_of_roomates=random.randint(2, 4),
+                    num_of_rooms=random.randint(2, 5),
+                    about=random.choice(SEEKER_ABOUT)).save()
+
     operations = [
         migrations.RunPython(generate_seeker_data),
+        migrations.RunPython(generate_more_seeker_data),
     ]

@@ -1,5 +1,6 @@
 from django.db import migrations, transaction
 from apartments.models import City
+from users.recources.cities import CITIES_NAMES_LIST
 
 
 class Migration(migrations.Migration):
@@ -9,60 +10,8 @@ class Migration(migrations.Migration):
     ]
 
     def generate_city_data(apps, schema_editor):
-        city_test_data = [
-            ('Jerusalem'),
-            ('Tel Aviv'),
-            ('Haifa'),
-            ('Ashdod'),
-            ('Rishon LeZiyyon'),
-            ('Petah Tiqwa'),
-            ('Beersheba'),
-            ('Netanya'),
-            ('Holon'),
-            ('Bnei Brak'),
-            ('Rehovot'),
-            ('Bat Yam'),
-            ('Ramat Gan'),
-            ('Ashkelon'),
-            ('Jaffa'),
-            ('Modiin'),
-            ('Herzliya'),
-            ('Kfar Saba'),
-            ('Raanana'),
-            ('Hadera'),
-            ('Bet Shemesh'),
-            ('Lod'),
-            ('Nazareth'),
-            ('Atlit'),
-            ('Ramla'),
-            ('Nahariyya'),
-            ('Qiryat Ata'),
-            ('Givatayim'),
-            ('Qiryat Gat'),
-            ('Acre'),
-            ('Eilat'),
-            ('Afula'),
-            ('Karmiel'),
-            ('Hod HaSharon'),
-            ('Umm el Fahm'),
-            ('Tiberias'),
-            ('Qiryat Mozqin'),
-            ('Qiryat Yam'),
-            ('Rosh HaAyin'),
-            ('Ness Ziona'),
-            ('Qiryat Bialik'),
-            ('Ramat HaSharon'),
-            ('Dimona'),
-            ('Taiyiba'),
-            ('Yavne'),
-            ('Or Yehuda'),
-            ('Qiryat Shemona'),
-            ('Kefar Yona'),
-            ('Shoham'),
-            ('Pardesiya'),
-        ]
         with transaction.atomic():
-            for name in city_test_data:
+            for name in CITIES_NAMES_LIST:
                 City(cityName=name).save()
 
     operations = [
