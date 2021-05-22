@@ -4,7 +4,7 @@ from apartments.models import Apartment, City
 from contacts.models import Connection
 from seekers.forms import SeekerCreationForm
 from apartments.forms import ApartmentCreationForm
-from search.forms import SearchForm
+from search.forms import SearchForm, PreferencesSearchForm
 from users.forms import UserCreationForm
 import pytest
 
@@ -170,6 +170,11 @@ def valid_search_form(db, city_model_Tel_Aviv):
         'num_of_roomates': 2,
         'num_of_rooms': 3,
     })
+
+
+@pytest.fixture
+def valid_preferences_form(db):
+    return PreferencesSearchForm()
 
 
 @pytest.fixture

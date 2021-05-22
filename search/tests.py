@@ -2,6 +2,7 @@ import pytest
 from django.urls import reverse
 from search.forms import SearchForm
 from search.views import get_filtered_apartments
+from django.contrib.auth import get_user_model
 
 
 @pytest.mark.django_db
@@ -12,14 +13,12 @@ class TestViews:
         url = reverse('search')
         response = client.get(url)
         assert response.status_code == 200
-        assert b"Search for apartments now!" in response.content
 
     def test_search_view_as_seeker(self, client, seeker_model):
         client.login(email='seekeremail@address.com', password='password')
         url = reverse('search')
         response = client.get(url)
         assert response.status_code == 200
-        assert b"Search for apartments now!" in response.content
 
     def test_search_view_not_logged_user(self, client):
         url = reverse('search')
@@ -63,24 +62,28 @@ def test_valid_form_is_valid(valid_search_form):
 
 
 @pytest.mark.django_db
-def test_not_successful_get_filtered_apartments(client, valid_search_form):
-    filtered_apartments = get_filtered_apartments(valid_search_form)
+def test_not_successful_get_filtered_apartments(client, valid_search_form, valid_preferences_form):
+    user1 = get_user_model().objects.create_user("t1@m.com", "test1", "test", "1995-05-05", "testing")
+    filtered_apartments = get_filtered_apartments(valid_search_form, valid_preferences_form, user1)
     result = filtered_apartments.count()
     expectedResult = 0
     assert result is expectedResult
 
 
 @pytest.mark.django_db
-def test_success_get_filtered_aparts(client, valid_search_form, apart_success_search):
-    filtered_apartments = get_filtered_apartments(valid_search_form)
+def test_success_get_filtered_aparts(client, valid_search_form, valid_preferences_form, apart_success_search):
+    user1 = get_user_model().objects.create_user("t1@m.com", "test1", "test", "1995-05-05", "testing")
+    filtered_apartments = get_filtered_apartments(valid_search_form, valid_preferences_form, user1)
     result = filtered_apartments.count()
     expectedResult = 1
     assert result is expectedResult
 
 
 @pytest.mark.django_db
-def test_multiple_success_get_filtered_aparts(client, valid_search_form, apart_success_search, apart2_success_search):
-    filtered_apartments = get_filtered_apartments(valid_search_form)
+def test_multiple_success_get_filtered_aparts(client, valid_search_form,
+                                              apart_success_search, apart2_success_search, valid_preferences_form):
+    user1 = get_user_model().objects.create_user("t1@m.com", "test1", "test", "1995-05-05", "testing")
+    filtered_apartments = get_filtered_apartments(valid_search_form, valid_preferences_form, user1)
     result = filtered_apartments.count()
     expectedResult = 2
     assert result is expectedResult
