@@ -90,12 +90,12 @@
         <div class="card shadow p-3 mb-5 bg-white rounded">
           <img src="{{ request.user.image_url }}" alt="Profile picture" id="profile_picture">
             <div class="card-body">
-              <h5 class="card-title username">Welcome, {{request.user.first_name}}!</h5>
-              <h6 class="card-subtitle text-muted">Recent Connections</h6>
+              <h5 class="card-title username">{{request.user.first_name}} {{request.user.last_name}}</h5>
+              {%if request.user.is_seeker == True %}<i><h5 class="card-title type">Seeker</h5></i>
+              {% elif request.user.is_owner == True%} <i></i><h5 class="card-title type">Owner</h5>
+              {% else%} <h5 class="card-title type">Admin</h5>{% endif %}
               <ul class="list-group list-group-flush recent-connections">
               </ul>
-              <br/>
-              <a href="{% url 'contact-page' %}" class="btn btn-primary">Connections</a>
             </div>
         </div>
       {% endblock %}
