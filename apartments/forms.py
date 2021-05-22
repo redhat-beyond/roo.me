@@ -35,6 +35,7 @@ class ApartmentCreationForm(forms.ModelForm):
             'num_of_rooms',
             'start_date',
             'about',
+            'image_url',
         )
 
     def save(self, commit=False):
