@@ -8,7 +8,7 @@ class SearchForm(forms.ModelForm):
     max_rent = forms.IntegerField(label='Maximum rent', validators=[MinValueValidator(limit_value=0)])
     num_of_roomates = forms.IntegerField(label='Number of roomates', validators=[MinValueValidator(limit_value=0)])
     num_of_rooms = forms.IntegerField(label='Number of rooms', validators=[MinValueValidator(limit_value=0)])
-    start_date = forms.DateField(label='Start date [YYYY-MM-DD]')
+    start_date = forms.DateField(label='Entry date [YYYY-MM-DD]')
 
     class Meta:
         model = Seeker

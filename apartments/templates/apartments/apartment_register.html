@@ -9,15 +9,14 @@
             <form method="POST">
                 {% csrf_token %}
                 <fieldset class="form-group">
-                    <legend class="border-bottom mb-2">Personal data:</legend>
+                    <legend class="border-bottom mb-2">User information</legend>
                     {{ uform|crispy }}
-                    <legend class="border-bottom mb-2 mt-4">Enter the apartment information:</legend>
-                    {{ aform|crispy }}
-                    <legend class="border-bottom mb-2 mt-4">Pick some qualities for the apartment:</legend>
-                    {{ qform|crispy }}
-                    <legend class="border-bottom mb-2 mt-4">Pick some hobbies:</legend>
+                    <legend class="border-bottom mb-2 mt-4">Pick your hobbies</legend>
                     {{ hform|crispy }}
-                    <button type="submit">Register</button>
+                    <legend class="border-bottom mb-2 mt-4">Tell us about your apartment</legend>
+                    {{ aform|crispy }}
+                    {{ qform|crispy }}
+                    <button class="btn btn-primary mt-3" type="submit">Register</button>
                 </fieldset>
             </form>
         </div>
