@@ -72,15 +72,92 @@ class SearchForm(forms.ModelForm):
             'num_of_rooms',
         ]
 
-class PreferenceSearchForm(forms.ModelForm):
 
-    no_smoking = forms.BooleanField()
-    pet_friendly = forms.BooleanField()
-    air_conditioner = forms.BooleanField()
-    balcony = forms.BooleanField()
-    elevator = forms.BooleanField()
-    long_term = forms.BooleanField()
-    immediate_entry = forms.BooleanField()
+class PreferencesSearchForm(forms.ModelForm):
+
+    no_smoking = forms.BooleanField(
+        widget=forms.CheckboxInput(
+            attrs={
+                'class': 'form-check-input',
+                'id': 'no-smoking',
+                'value': 'no-smoking'
+            }
+        ),
+        initial=False,
+        required=False
+    )
+
+    pets_allowed = forms.BooleanField(
+        widget=forms.CheckboxInput(
+            attrs={
+                'class': 'form-check-input',
+                'id': 'pets_allowed',
+                'value': 'pets_allowed'
+            }
+        ),
+        initial=False,
+        required=False
+    )
+
+    air_conditioner = forms.BooleanField(
+        widget=forms.CheckboxInput(
+            attrs={
+                'class': 'form-check-input',
+                'id': 'air-con',
+                'value': 'air-con'
+            }
+        ),
+        initial=False,
+        required=False
+    )
+
+    balcony = forms.BooleanField(
+        widget=forms.CheckboxInput(
+            attrs={
+                'class': 'form-check-input',
+                'id': 'balcony',
+                'value': 'balcony'
+            }
+        ),
+        initial=False,
+        required=False
+    )
+
+    elevator = forms.BooleanField(
+        widget=forms.CheckboxInput(
+            attrs={
+                'class': 'form-check-input',
+                'id': 'elevator',
+                'value': 'elevator'
+            }
+        ),
+        initial=False,
+        required=False
+    )
+
+    long_term = forms.BooleanField(
+        widget=forms.CheckboxInput(
+            attrs={
+                'class': 'form-check-input',
+                'id': 'long-term',
+                'value': 'long-term'
+            }
+        ),
+        initial=False,
+        required=False
+    )
+
+    immediate_entry = forms.BooleanField(
+        widget=forms.CheckboxInput(
+            attrs={
+                'class': 'form-check-input',
+                'id': 'immediate-entry',
+                'value': 'immediate-entry'
+            }
+        ),
+        initial=False,
+        required=False
+    )
 
     class Meta:
         model = User

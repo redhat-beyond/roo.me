@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="row">
-  <div class="card">
+  <div class="card mb-3">
     <div class="card-body">
         <div class="fieldWrapper">
           <form class="row row-cols-lg-auto g-3 align-items-center" method="POST">
@@ -15,80 +15,81 @@
             <div class="col-12">
               <label for="city">City</label>
               <div class="input-group">
-                {{ form.city }}
+                {{ search_form.city }}
               </div>
             </div>
 
             <div class="col-12">
               <label for="start-date">Entry date</label>
-              {{ form.start_date }}
+              {{ search_form.start_date }}
             </div>
 
             <div class="col-12">
               <label for="num-rooms">Number of rooms</label>
-              {{ form.num_of_rooms }}
+              {{ search_form.num_of_rooms }}
             </div>
 
             <div class="col-12">
               <label for="roommates">Number of roommates</label>
-              {{ form.num_of_roomates }}
+              {{ search_form.num_of_roomates }}
             </div>
 
             <div class="col-12">
               <label for="min-rent">Minimum rent</label>
-              {{ form.min_rent }}
+              {{ search_form.min_rent }}
             </div>
 
             <div class="col-12">
               <label for="max-rent">Max rent</label>
-              {{ form.max_rent }}
+              {{ search_form.max_rent }}
             </div>
 
             <div class="input-group">
+
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="no-smoking" value="no-smoking">
+                {{ preferences_form.no_smoking}}
                 <span class="badge rounded-pill bg-primary">
                   <label class="form-check-label" for="no-smoking"><i class="fas fa-smoking-ban"></i> No Smoking</label>
                 </span>
               </div>
 
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="pet-friendly" value="pet-friendly">
+                {{ preferences_form.pets_allowed }}                
                 <span class="badge rounded-pill bg-primary">
-                  <label class="form-check-label" for="pet-friendly"><i class="fas fa-paw"></i> Pet Friendly</label>
+                  <label class="form-check-label" for="pets-allowed"><i class="fas fa-paw"></i> Pet Friendly</label>
                 </span>
               </div>
 
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="air-con" value="air-con">
+                {{ preferences_form.air_conditioner }}
                 <span class="badge rounded-pill bg-primary">
                   <label class="form-check-label" for="air-con"><i class="fas fa-fan"></i> A/C</label>
                 </span>
               </div>
 
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="balcony" value="balcony">
+                {{ preferences_form.balcony }}
                 <span class="badge rounded-pill bg-primary">
                   <label class="form-check-label" for="balcony"><i class="fas fa-sun"></i> Balcony</label>
                 </span>
               </div>
 
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="elevator" value="elevator">
+                {{ preferences_form.elevator }}
                 <span class="badge rounded-pill bg-primary">
                   <label class="form-check-label" for="elevator"><i class="fas fa-arrow-alt-circle-up"></i> Elevator</label>
                 </span>
               </div>
 
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="long-term" value="long-term">
+                {{ preferences_form.long_term }}
                 <span class="badge rounded-pill bg-primary">
                   <label class="form-check-label" for="long-term"><i class="fas fa-file-signature"></i> Long Term</label>
                 </span>
               </div>
 
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="immediate-entry" value="immediate-entry">
+                {{ preferences_form.immediate_entry }}
                 <span class="badge rounded-pill bg-primary">
                   <label class="form-check-label" for="immediate-entry"><i class="fas fa-paw"></i> Immediate Entry</label>
                 </span>
@@ -105,7 +106,6 @@
 </div>
   <div class="col-md-5">
     {% if filteredApartments%}
-    <h2>Search results</h2>
     {% for apartment in filteredApartments %}
     <div class="col">
         <div class="card h-100">
@@ -120,7 +120,7 @@
             
             <div class="tab-content" id="card-tab-content">
                 <div class="tab-pane fade show active" id="apt-{{apartment.owner.id}}" role="tabpanel" aria-labelledby="apt-tab-{{apartment.owner.id}}">
-                    <img src="{{apartment.image_url}}" height="170" width="375" alt="{{apartment.address}}">
+                    <img src="{{apartment.image_url}}" class="card-img-top" alt="{{apartment.address}}">
                     <div class="card-body">
                         <h5 class="card-title">{{apartment.address}}, {{apartment.city}}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">Uploaded by {{apartment.owner.first_name}} {{apartment.owner.last_name}}</h6>
@@ -150,17 +150,17 @@
                 <i class="fas fa-door-closed"></i> {{apartment.num_of_rooms}} Rooms</h6>
                 <p><i class="fas fa-money-check-alt"></i><strong> Rent:</strong> {{apartment.rent}} &nbsp;  &nbsp; &nbsp;  &nbsp;
                     <i class="fas fa-calendar-day"></i><strong> Entry:</strong> {{apartment.start_date}}</p>
+                    <h6><strong>About</strong></h6>
+                    <p class="card-text">{{apartment.about}}</p>
                     <a href="/contacts/add/{{apartment.pk}}" class="btn btn-primary">YES <i class="fas fa-check-circle"></i></a>
                     <a href="/contacts/decline/{{apartment.pk}}" class="btn btn-primary">NO <i class="fas fa-times-circle"></i></a>
                     <a href="/apartments/{{apartment.pk}}/details" class="btn btn-primary">More Information</a>
                     <br><br>
-                    <h6><strong>About</strong></h6>
-                    <p class="card-text">{{apartment.about}}</p>
                 </div>
             </div>
             
             <div class="tab-pane fade" id="rmt-{{apartment.owner.id}}" role="tabpanel" aria-labelledby="rmt-tab-{{apartment.owner.id}}">
-                <img src="../../static/img/user-account.png" height="170" width="375"  alt={{apartment.address}}>
+                <img src='{{ apartment.owner.image_url }}' class="card-img-top" alt={{apartment.address}}>
                 <div class="card-body">
                     <h5 class="card-title">{{apartment.owner.first_name}} {{apartment.owner.last_name}}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{apartment.address}}, {{apartment.city}}</h6>
