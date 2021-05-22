@@ -25,13 +25,13 @@ Roo.me - Search
           </div>
 
           <div class="col-12">
-            <label for="num-rooms">Number of rooms</label>
-            {{ search_form.num_of_rooms }}
+            <label for="roommates">Number of roommates</label>
+            {{ search_form.num_of_roomates }}
           </div>
 
           <div class="col-12">
-            <label for="roommates">Number of roommates</label>
-            {{ search_form.num_of_roomates }}
+            <label for="num-rooms">Number of rooms</label>
+            {{ search_form.num_of_rooms }}
           </div>
 
           <div class="col-12">
@@ -40,7 +40,7 @@ Roo.me - Search
           </div>
 
           <div class="col-12">
-            <label for="max-rent">Max rent</label>
+            <label for="max-rent">Maximum rent</label>
             {{ search_form.max_rent }}
           </div>
 
@@ -163,10 +163,11 @@ Roo.me - Search
               &nbsp;
               <i class="fas fa-calendar-day"></i><strong> Entry:</strong> {{apartment.start_date}}
             </p>
+            {% if request.user.is_seeker%}
             <a href="/contacts/add/{{apartment.pk}}" class="btn btn-primary">YES <i class="fas fa-check-circle"></i></a>
-            <a href="/contacts/decline/{{apartment.pk}}" class="btn btn-primary">NO <i
-                class="fas fa-times-circle"></i></a>
+            <a href="/contacts/decline/{{apartment.pk}}" class="btn btn-primary">NO <iclass="fas fa-times-circle"></i></a> {% endif %}
             <a href="/apartments/{{apartment.pk}}/details" class="btn btn-primary">More Information</a>
+
             <br><br>
             <h6><strong>About</strong></h6>
             <p class="card-text">{{apartment.about}}</p>
