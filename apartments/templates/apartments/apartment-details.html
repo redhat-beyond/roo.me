@@ -12,8 +12,8 @@
                 {% if request.user == apartment.owner %}
                 <a href="{% url 'apartment-update' %}" class="btn btn-primary">Update</a>
                 {% elif apartment.is_relevant %}
-                <a href="#" class="card-link">V icon</a>
-                <a href="#" class="card-link">X icon</a>
+                <a href="/contacts/add/{{apartment.pk}}" class="card-link">V icon</a>
+                <a href="/contacts/decline/{{apartment.pk}}" class="card-link">X icon</a>
                 {% endif %}
 
                 {% if not apartment.is_relevant %}
