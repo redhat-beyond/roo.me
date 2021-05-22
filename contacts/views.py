@@ -47,6 +47,31 @@ def add_new_contact(request, apartment_id):
 
 
 @login_required
+def decline_apartment(request, apartment_id):
+    if not request.user.is_seeker:
+        messages.warning(request, "You can't decline apartments!")
+    else:
+        try:
+            apartment_to_decline = Apartment.objects.get(pk=apartment_id)
+        except ObjectDoesNotExist:
+            apartment_to_decline = None
+        if apartment_to_decline is None:
+            messages.warning(request, "Invalid apartment request!")
+        else:
+            seeker_to_add = request.user.seeker
+            new_connection = Connection(apartment=apartment_to_decline, seeker=seeker_to_add)
+            try:
+                with transaction.atomic():
+                    new_connection.save()
+                    new_connection.reject()
+                    messages.success(request, "This apartment will not pop up anymore")
+            except IntegrityError:
+                messages.warning(request, "You currently have a connection with this apartment!")
+
+    return redirect('home')
+
+
+@login_required
 def approve_or_reject_contact(request, action, connection_id):
     connection_to_action = Connection.get_connection_by_id(connection_id)
     if connection_to_action is None:
