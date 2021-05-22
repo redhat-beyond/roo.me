@@ -29,7 +29,7 @@ def search(request):
                     instance=request.user.apartment,
                     initial={
                         'min_rent': 1,
-                        'max_rent': request.user.apartment.rent + 500}
+                        'max_rent': 500}
                 )
         elif request.user.is_seeker is True:
             search_form = SearchForm(instance=request.user.seeker)
@@ -54,7 +54,7 @@ def search(request):
 def get_filtered_apartments(form):
     return Apartment.objects.filter(**{
             'is_relevant': True,
-            'start_date__gte': form['start_date'].value(),
+            'start_date__lte': form['start_date'].value(),
             'city': form['city'].value(),
             'rent__gte': form['min_rent'].value(),
             'rent__lte': form['max_rent'].value(),
