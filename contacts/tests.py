@@ -129,6 +129,21 @@ def test_seeker_add_contact(sample_connection, client, make_apartment, log_in_sa
 
 
 @pytest.mark.django_db
+def test_seeker_decline_contact(sample_connection, client, make_apartment, log_in_sample_connection_seeker):
+    rejected = Connection.get_connections_by_user(sample_connection.seeker.base_user, ConnectionType.REJECTED)
+    assert rejected.count() == 0
+    temp_user = get_user_model().objects.create_user("t4@m.com", "test4", "test", "1995-05-05", "testing")
+    temp_apartment = make_apartment(temp_user, "Haickarim 5", 300, 3, 3, "2021-05-05")
+    temp_id = temp_apartment.pk
+    response = client.get(f'/contacts/decline/{temp_id}', follow=True)
+    assert response.status_code == 200
+    rejected = Connection.get_connections_by_user(sample_connection.seeker.base_user, ConnectionType.REJECTED)
+    assert rejected.count() == 1
+    ok_message = list(get_messages(response.wsgi_request))[0]
+    assert ok_message.message == "This apartment will not pop up anymore"
+
+
+@pytest.mark.django_db
 def test_owner_cant_add_contacts(client, log_in_sample_connection_apartment):
     response = client.get('/contacts/add/1', follow=True)
     assert response.status_code == 200
