@@ -47,7 +47,7 @@ class Migration(migrations.Migration):
                 num_of_rooms = num_of_roomates + random.randint(0, 3)
                 Apartment(
                     owner=user,
-                    city=cities[random.randint(0, 9)],
+                    city=cities[random.randint(0, 5)],
                     address=address,
                     rent=random.randint(1500, 5000),
                     num_of_roomates=num_of_roomates,
