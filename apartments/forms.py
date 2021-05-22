@@ -7,7 +7,6 @@ class ApartmentDetailsUpdateForm(forms.ModelForm):
     class Meta:
         model = Apartment
         fields = [
-            'date_posted',
             'city',
             'address',
             'rent',
@@ -15,8 +14,8 @@ class ApartmentDetailsUpdateForm(forms.ModelForm):
             'num_of_rooms',
             'start_date',
             'about',
-            'is_relevant',
-            'image_url'
+            'image_url',
+            'is_relevant'
             ]
 
 
