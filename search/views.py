@@ -45,7 +45,7 @@ def search(request):
                 'num_of_roomates': 2,
                 'num_of_rooms': 3
             })
-        
+
         preferences_form = PreferencesSearchForm(
             instance=request.user
         )
@@ -87,7 +87,7 @@ def get_filtered_apartments(search_form, preferences_form, user):
         filter_args['owner__immediate_entry'] = True
 
     relevant_apartments = Apartment.objects.filter(**filter_args)
-    
+
     if user.is_seeker:
         for apartment in relevant_apartments:
             try:

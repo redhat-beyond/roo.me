@@ -19,20 +19,20 @@ class SearchForm(forms.ModelForm):
     max_rent = forms.IntegerField(
         widget=forms.NumberInput(
             attrs={
-               'type': 'number',
+                'type': 'number',
                 'class': 'form-control',
                 'id': 'max-rent',
             }
         ),
         validators=[MinValueValidator(limit_value=0)]
     )
-    
+
     num_of_roomates = forms.IntegerField(
         widget=forms.NumberInput(
             attrs={
-               'type': 'number',
+                'type': 'number',
                 'class': 'form-control',
-                'id': 'roommates', 
+                'id': 'roommates',
             }
         ),
         validators=[MinValueValidator(limit_value=0)]
@@ -41,7 +41,7 @@ class SearchForm(forms.ModelForm):
     num_of_rooms = forms.IntegerField(
         widget=forms.NumberInput(
             attrs={
-               'type': 'number',
+                'type': 'number',
                 'class': 'form-control',
                 'id': 'num_rooms',
             }
@@ -52,9 +52,9 @@ class SearchForm(forms.ModelForm):
     start_date = forms.DateField(
         widget=forms.DateInput(
             attrs={
-               'type': 'date',
+                'type': 'date',
                 'class': 'form-control',
-                'id': 'start-date', 
+                'id': 'start-date',
             }
         )
     )
