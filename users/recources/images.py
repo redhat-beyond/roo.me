@@ -20,6 +20,15 @@ PROFILE_IMAGE_URL_LIST = [
     "https://live-production.wcms.abc-cdn.net.au/9905bc176eace972a6b67f3d298309c6?impolicy=wcms_crop_resize&cr\
         opH=499&cropW=750&xPos=0&yPos=184&width=862&height=575",
     "https://noticiasdatv.uol.com.br/media/uploads/artigos/lucas-selfie-lanca-podcast-reproducao-instagram.jpg",
+    "../../static/img/profile1.png",
+    "../../static/img/profile2.png",
+    "../../static/img/profile3.png",
+    "../../static/img/profile4.png",
+    "../../static/img/profile5.png",
+    "../../static/img/profile6.png",
+    "../../static/img/profile7.png",
+    "../../static/img/profile8.png",
+    "../../static/img/profile9.png",
 ]
 
 
@@ -48,4 +57,13 @@ APARTMENT_IMAGE_URL_LIST = [
     "https://www.mo2properties.com/wp-content/uploads/2018/04/image-2018-06-25-1-2-749x460.jpg",
     "https://a.otcdn.com/imglib/hotelfotos/8/362/apartments-in-ha-kerem-tel-aviv-035-20200901141701.jpg",
     "https://cdngeneral.rentcafe.com/dmslivecafe/3/1232709/Riverstone%20Apartments-5(1).jpg?quality=85&scale=both&",
+    "../../static/img/apartment1.png",
+    "../../static/img/apartment2.png",
+    "../../static/img/apartment3.png",
+    "../../static/img/apartment4.png",
+    "../../static/img/apartment5.png",
+    "../../static/img/apartment6.png",
+    "../../static/img/apartment7.png",
+    "../../static/img/apartment8.png",
+    "../../static/img/apartment9.png",
 ]
