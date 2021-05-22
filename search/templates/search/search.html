@@ -66,9 +66,9 @@
                 <i class="fas fa-door-closed"></i> {{apartment.num_of_rooms}} Rooms</h6>
                 <p><i class="fas fa-money-check-alt"></i><strong> Rent:</strong> {{apartment.rent}} &nbsp;  &nbsp; &nbsp;  &nbsp;
                     <i class="fas fa-calendar-day"></i><strong> Entry:</strong> {{apartment.start_date}}</p>
-                    <a href="#" class="btn btn-primary">YES <i class="fas fa-check-circle"></i></a>
-                    <a href="#" class="btn btn-primary">NO <i class="fas fa-times-circle"></i></a>
-                    <a href="#" class="btn btn-primary">More Information</a>
+                    <a href="/contacts/add/{{apartment.pk}}" class="btn btn-primary">YES <i class="fas fa-check-circle"></i></a>
+                    <a href="/contacts/decline/{{apartment.pk}}" class="btn btn-primary">NO <i class="fas fa-times-circle"></i></a>
+                    <a href="/apartments/{{apartment.pk}}/details" class="btn btn-primary">More Information</a>
                     <br><br>
                     <h6><strong>About</strong></h6>
                     <p class="card-text">{{apartment.about}}</p>

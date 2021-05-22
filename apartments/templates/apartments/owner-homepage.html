@@ -33,8 +33,8 @@
                                     <td>{{connection.seeker.base_user.first_name}}</td>
                                     <td>{{connection.date_created}}</td>
                                     <td>{{connection.seeker.about}}</td>
-                                    <td><a href="#"><i class="fas fa-user-plus"></i></i></a>
-                                        <a href="#"><i class="fas fa-user-minus"></i></a>
+                                    <td><a href="/contacts/approve/{{connection.pk}}"><i class="fas fa-user-plus"></i></i></a>
+                                        <a href="/contacts/reject/{{connection.pk}}"><i class="fas fa-user-minus"></i></a>
                                     </td>
                                 </tr>
                                 {% endfor %}
