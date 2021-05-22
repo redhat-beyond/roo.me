@@ -48,8 +48,8 @@ h1 {
     letter-spacing: 1px;
 }
 
-.btn:link,
-.btn:visited,
+.my-btn:link,
+.my-btn:visited,
 input[type=submit] {
     display: inline-block;
     padding: 10px 30px;
@@ -60,8 +60,8 @@ input[type=submit] {
     transition: background-color 0.2s, border 0.2s, color 0.2s;
 }
 
-.btn-full:link,
-.btn-full:visited,
+.my-btn-full:link,
+.my-btn-full:visited,
 input[type=submit] {
     background-color: #03ca77;
     border: 1px solid #03ca77;
@@ -69,26 +69,26 @@ input[type=submit] {
     margin-right: 15px;
 }
 
-.btn-ghost:link,
-.btn-ghost:visited {
+.my-btn-ghost:link,
+.my-btn-ghost:visited {
     border: 1px solid #03ca77;
     color: #03ca77;
 }
 
-.btn:hover,
-.btn:active,
+.my-btn:hover,
+.my-btn:active,
 input[type=submit]:hover,
 input[type=submit]:active {
     background-color: #1aac6f;
 }
 
-.btn-full:hover,
-.btn-full:active {
+.my-btn-full:hover,
+.my-btn-full:active {
     border: 1px solid #1aac6f;
 }
 
-.btn-ghost:hover,
-.btn-ghost:active {
+.my-btn-ghost:hover,
+.my-btn-ghost:active {
     border: 1px solid #1aac6f;
     color: #fff;
 }
