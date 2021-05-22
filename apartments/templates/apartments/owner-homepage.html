@@ -3,141 +3,138 @@
 {% block content %}
 
 <div class="card mb-2">
-    <div class="card-body">
-        <div class="row row-cols-md-2">
-            <div class="col-md-8">
-                <h4 class="card-title"><i class="fas fa-home fa-lg"></i> Home Page</h4>
-                <hr>
-                <div class="mt-5 mb-5">
-                    <h5> Hello {{ user.first_name }}</h5>
-                    <h6>See how your apartment looks to other users.. <i class="fas fa-arrow-right fa-xs"></i> <i class="fas fa-arrow-right fa-xs"></i><br> what do you think?</h6>
-                    <p class="text-muted">Want to update? visit <a href="{% url 'apartment-update' %}">here</a></p>
-                </div>
-                <hr>
-                <div class="mt-5">
-                    <h5>Have a look at your pending connections</h6>
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">About</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for connection in pending_connections %}
-                                <tr>
-                                    <th scope="row">{{ forloop.counter }}</th>
-                                    <td>{{connection.seeker.base_user.first_name}}</td>
-                                    <td>{{connection.date_created}}</td>
-                                    <td>{{connection.seeker.about}}</td>
-                                    <td><a href="/contacts/approve/{{connection.pk}}"><i class="fas fa-user-plus"></i></i></a>
-                                        <a href="/contacts/reject/{{connection.pk}}"><i class="fas fa-user-minus"></i></a>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100">
-                    <ul class="nav nav-pills" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="apt-tab-{{apartment.owner.id}}" data-toggle="tab"
-                                href="#apt-{{apartment.owner.id}}" role="tab" aria-controls="apt-{{apartment.owner.id}}"
-                                aria-selected="true">Apartment</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="rmt-tab-{{apartment.owner.id}}" data-toggle="tab"
-                                href="#rmt-{{apartment.owner.id}}" role="tab" aria-controls="rmt-{{apartment.owner.id}}"
-                                aria-selected="false">Roommate</a>
-                        </li>
-                    </ul>
-
-                    <div class="tab-content" id="card-tab-content">
-                        <div class="tab-pane fade show active" id="apt-{{apartment.owner.id}}" role="tabpanel"
-                            aria-labelledby="apt-tab-{{apartment.owner.id}}">
-                            <img src="{{apartment.image_url}}" class="card-img-top" alt="{{apartment.address}}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{apartment.address}}, {{apartment.city}}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Uploaded by {{apartment.owner.first_name}}
-                                    {{apartment.owner.last_name}}</h6>
-                                {% if apartment.owner.not_smoking %}
-                                <span class="badge rounded-pill bg-secondary"><i class="fas fa-smoking-ban"></i><small>
-                                        No
-                                        smoking</small></span>
-                                {% endif %}
-                                {% if apartment.owner.pets_allowed %}
-                                <span class="badge rounded-pill bg-secondary"><i class="fas fa-paw"></i><small> Pet
-                                        friendly</small></span>
-                                {% endif %}
-                                {% if apartment.owner.air_conditioner %}
-                                <span class="badge rounded-pill bg-secondary"><i class="fas fa-fan"></i><small>
-                                        A/C</small></span>
-                                {% endif %}
-                                {% if apartment.owner.balcony %}
-                                <span class="badge rounded-pill bg-secondary"><i class="fas fa-sun"></i><small>
-                                        Balcony</small></span>
-                                {% endif %}
-                                {% if apartment.owner.elevator %}
-                                <span class="badge rounded-pill bg-secondary"><i
-                                        class="fas fa-arrow-alt-circle-up"></i><small>
-                                        Elevator</small></span>
-                                {% endif %}
-                                {% if apartment.owner.long_term %}
-                                <span class="badge rounded-pill bg-secondary"><i
-                                        class="fas fa-file-signature"></i><small> Long
-                                        Term</small></span>
-                                {% endif %}
-                                {% if apartment.owner.immediate_entry %}
-                                <span class="badge rounded-pill bg-secondary"><i class="fas fa-calendar-day"></i><small>
-                                        Imediate
-                                        Entry</small></span>
-                                {% endif %}
-                                <br><br>
-                                <h6><i class="fas fa-user"></i> {{apartment.num_of_roomates}} Roommates</h6>
-                                <h6><i class="fas fa-door-closed"></i> {{apartment.num_of_rooms}} Rooms</h6>
-                                <br>
-                                <h6><strong>About</strong></h6>
-                                <p class="card-text">{{apartment.about}}</p>
-                                <p><i class="fas fa-calendar-day"></i><strong> Entry:</strong> {{apartment.start_date}}
-                                <p><i class="fas fa-money-check-alt"></i><strong> Rent:</strong> {{apartment.rent}}</p>
-                                <a href="#" class="btn btn-primary"><i class="fas fa-check-circle"></i></a>
-                                <a href="#" class="btn btn-primary"><i class="fas fa-times-circle"></i></a>
-                                <a href="#" class="btn btn-primary">More Information</a>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane fade" id="rmt-{{apartment.owner.id}}" role="tabpanel"
-                            aria-labelledby="rmt-tab-{{apartment.owner.id}}">
-                            <img src="{{apartment.owner.image_url}}" class="card-img-top" alt={{apartment.address}}>
-                            <div class="card-body">
-                                <h5 class="card-title">{{apartment.owner.first_name}} {{apartment.owner.last_name}}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">{{apartment.address}}, {{apartment.city}}</h6>
-                                {% for hobby in apartment.owner.hobbies.all %}
-                                <span class="badge rounded-pill bg-secondary"><small>{{hobby}}</small></span>
-                                {% endfor %}
-                                <br><br>
-                                <br>
-                                <a href="#" class="btn btn-primary yes"><i class="fas fa-check-circle"></i></a>
-                                <a href="#" class="btn btn-primary no"><i class="fas fa-times-circle"></i></a>
-                                <a href="#" class="btn btn-primary">More Information</a>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Uploaded on {{apartment.date_posted}}</small>
-                    </div>
-                </div>
-            </div>
+  <div class="card-body">
+    <div class="row row-cols-md-2">
+      <div class="col-md-7">
+        <h4 class="card-title"><i class="fas fa-home fa-lg"></i> Home Page</h4>
+        <hr>
+        <div class="mt-5 mb-5">
+          <h5> Hello {{ user.first_name }}</h5>
+          <h6>See how your apartment looks to other users.. <i class="fas fa-arrow-right fa-xs"></i> <i
+              class="fas fa-arrow-right fa-xs"></i><br> what do you think?</h6>
+          <p class="text-muted">Want to update? visit <a href="{% url 'apartment-update' %}">here</a></p>
         </div>
+        <hr>
+        <div class="mt-5">
+          <h5>Have a look at your pending connections</h6>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">About</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for connection in pending_connections %}
+                <tr>
+                  <th scope="row">{{ forloop.counter }}</th>
+                  <td>{{connection.seeker.base_user.first_name}}</td>
+                  <td>{{connection.date_created}}</td>
+                  <td>{{connection.seeker.about}}</td>
+                  <td><a href="/contacts/approve/{{connection.pk}}"><i class="fas fa-user-plus"></i></i></a>
+                    <a href="/contacts/reject/{{connection.pk}}"><i class="fas fa-user-minus"></i></a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
 
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="card h-100">
+          <ul class="nav nav-pills" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="apt-tab-{{apartment.owner.id}}" data-toggle="tab"
+                href="#apt-{{apartment.owner.id}}" role="tab" aria-controls="apt-{{apartment.owner.id}}"
+                aria-selected="true">Apartment</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="rmt-tab-{{apartment.owner.id}}" data-toggle="tab"
+                href="#rmt-{{apartment.owner.id}}" role="tab" aria-controls="rmt-{{apartment.owner.id}}"
+                aria-selected="false">Roommate</a>
+            </li>
+          </ul>
+
+          <div class="tab-content" id="card-tab-content">
+            <div class="tab-pane fade show active" id="apt-{{apartment.owner.id}}" role="tabpanel"
+              aria-labelledby="apt-tab-{{apartment.owner.id}}">
+              <img src="{{apartment.image_url}}" class="card-img-top" height=275 width=150 alt="{{apartment.address}}">
+              <div class="card-body">
+                <h5 class="card-title">{{apartment.address}}, {{apartment.city}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Uploaded by {{apartment.owner.first_name}}
+                  {{apartment.owner.last_name}}</h6>
+                {% if apartment.owner.not_smoking %}
+                <span class="badge rounded-pill bg-secondary"><i class="fas fa-smoking-ban"></i><small> No
+                    smoking</small></span>
+                {% endif %}
+                {% if apartment.owner.pets_allowed %}
+                <span class="badge rounded-pill bg-secondary"><i class="fas fa-paw"></i><small> Pet
+                    friendly</small></span>
+                {% endif %}
+                {% if apartment.owner.air_conditioner %}
+                <span class="badge rounded-pill bg-secondary"><i class="fas fa-fan"></i><small> A/C</small></span>
+                {% endif %}
+                {% if apartment.owner.balcony %}
+                <span class="badge rounded-pill bg-secondary"><i class="fas fa-sun"></i><small> Balcony</small></span>
+                {% endif %}
+                {% if apartment.owner.elevator %}
+                <span class="badge rounded-pill bg-secondary"><i class="fas fa-arrow-alt-circle-up"></i><small>
+                    Elevator</small></span>
+                {% endif %}
+                {% if apartment.owner.long_term %}
+                <span class="badge rounded-pill bg-secondary"><i class="fas fa-file-signature"></i><small> Long
+                    Term</small></span>
+                {% endif %}
+                {% if apartment.owner.immediate_entry %}
+                <span class="badge rounded-pill bg-secondary"><i class="fas fa-calendar-day"></i><small> Imediate
+                    Entry</small></span>
+                {% endif %}
+                <br><br>
+                <h6><i class="fas fa-user"></i> {{apartment.num_of_roomates}} Roommates &nbsp; &nbsp;
+                  <i class="fas fa-door-closed"></i> {{apartment.num_of_rooms}} Rooms
+                </h6>
+                <p><i class="fas fa-money-check-alt"></i><strong> Rent:</strong> {{apartment.rent}} &nbsp; &nbsp; &nbsp;
+                  &nbsp;
+                  <i class="fas fa-calendar-day"></i><strong> Entry:</strong> {{apartment.start_date}}
+                </p>
+                <a href="#" class="btn btn-primary">YES <i
+                    class="fas fa-check-circle"></i></a>
+                <a href="#" class="btn btn-primary">NO <i
+                    class="fas fa-times-circle"></i></a>
+                <a href="/apartments/{{apartment.pk}}/details" class="btn btn-primary">More Information</a>
+                <br><br>
+                <h6><strong>About</strong></h6>
+                <p class="card-text">{{apartment.about}}</p>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="rmt-{{apartment.owner.id}}" role="tabpanel"
+              aria-labelledby="rmt-tab-{{apartment.owner.id}}">
+              <img src={{apartment.owner.image_url}} class="card-img-top" height=275 width=150
+                alt={{apartment.address}}>
+              <div class="card-body">
+                <h5 class="card-title">{{apartment.owner.first_name}} {{apartment.owner.last_name}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{apartment.address}}, {{apartment.city}}</h6>
+                {% for hobby in apartment.owner.hobbies.all %}
+                <span class="badge rounded-pill bg-secondary"><small>{{hobby}}</small></span>
+                {% endfor %}
+                <br><br>
+                <br>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Uploaded on {{apartment.date_posted}}</small>
+          </div>
+        </div>
+      </div>
     </div>
+
+  </div>
 </div>
 
 {% endblock %}
