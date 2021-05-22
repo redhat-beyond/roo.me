@@ -93,7 +93,7 @@ def apart_success_search(db, city_model_Tel_Aviv):
         rent=2500,
         num_of_roomates=2,
         num_of_rooms=3,
-        start_date='2021-01-01',
+        start_date='2021-03-02',
         about='Hey!',
         image_url='www.some-url.com',
     )
@@ -114,7 +114,7 @@ def apart2_success_search(db, city_model_Tel_Aviv):
         rent=2750,
         num_of_roomates=2,
         num_of_rooms=3,
-        start_date='2020-07-17',
+        start_date='2021-02-02',
         about='Hey!',
         image_url='www.some-url.com',
     )
@@ -164,7 +164,7 @@ def valid_apartment_creation_form(db, city_model):
 def valid_search_form(db, city_model_Tel_Aviv):
     return SearchForm(data={
         'city': city_model_Tel_Aviv,
-        'start_date': '2021-01-01',
+        'start_date': '2021-03-03',
         'min_rent': 2000,
         'max_rent': 3000,
         'num_of_roomates': 2,
