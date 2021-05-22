@@ -7,19 +7,103 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-md-5"> 
-        <h2>Hey {{ loggedUser.first_name }}!</h1>
-        <h4>Search for apartments now!</h2>
-        <form method="POST">
+  <div class="card">
+    <div class="card-body">
+        <div class="fieldWrapper">
+          <form class="row row-cols-lg-auto g-3 align-items-center" method="POST">
             {% csrf_token %}
-            <fieldset class="form-group">
-                {{ searchForm|crispy }}
-                <button class="btn btn-primary mt-3" type="submit">Search!</button>
-            </fieldset>
-        </form>
-        <h8>*Preferences are temporary and can be modified.</h8>
+            <div class="col-12">
+              <label for="city">City</label>
+              <div class="input-group">
+                {{ form.city }}
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="start-date">Entry date</label>
+              {{ form.start_date }}
+            </div>
+
+            <div class="col-12">
+              <label for="num-rooms">Number of rooms</label>
+              {{ form.num_of_rooms }}
+            </div>
+
+            <div class="col-12">
+              <label for="roommates">Number of roommates</label>
+              {{ form.num_of_roomates }}
+            </div>
+
+            <div class="col-12">
+              <label for="min-rent">Minimum rent</label>
+              {{ form.min_rent }}
+            </div>
+
+            <div class="col-12">
+              <label for="max-rent">Max rent</label>
+              {{ form.max_rent }}
+            </div>
+
+            <div class="input-group">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="no-smoking" value="no-smoking">
+                <span class="badge rounded-pill bg-primary">
+                  <label class="form-check-label" for="no-smoking"><i class="fas fa-smoking-ban"></i> No Smoking</label>
+                </span>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="pet-friendly" value="pet-friendly">
+                <span class="badge rounded-pill bg-primary">
+                  <label class="form-check-label" for="pet-friendly"><i class="fas fa-paw"></i> Pet Friendly</label>
+                </span>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="air-con" value="air-con">
+                <span class="badge rounded-pill bg-primary">
+                  <label class="form-check-label" for="air-con"><i class="fas fa-fan"></i> A/C</label>
+                </span>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="balcony" value="balcony">
+                <span class="badge rounded-pill bg-primary">
+                  <label class="form-check-label" for="balcony"><i class="fas fa-sun"></i> Balcony</label>
+                </span>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="elevator" value="elevator">
+                <span class="badge rounded-pill bg-primary">
+                  <label class="form-check-label" for="elevator"><i class="fas fa-arrow-alt-circle-up"></i> Elevator</label>
+                </span>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="long-term" value="long-term">
+                <span class="badge rounded-pill bg-primary">
+                  <label class="form-check-label" for="long-term"><i class="fas fa-file-signature"></i> Long Term</label>
+                </span>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="immediate-entry" value="immediate-entry">
+                <span class="badge rounded-pill bg-primary">
+                  <label class="form-check-label" for="immediate-entry"><i class="fas fa-paw"></i> Immediate Entry</label>
+                </span>
+              </div>
+              <div class="col-12">
+                <br>
+                <button type="submit" class="btn btn-primary">Search</button>
+              </div>
+            </div>
+          </form>
+      </div>
     </div>
-<div class="col-md-5">
+  </div>
+</div>
+  <div class="col-md-5">
     {% if filteredApartments%}
     <h2>Search results</h2>
     {% for apartment in filteredApartments %}

@@ -43,7 +43,7 @@ def search(request):
                 'num_of_rooms': 3
             })
     context = {
-        'searchForm': search_form,
+        'form': search_form,
         'loggedUser': request.user,
         'filteredApartments': filtered_apartments,
         'showResults': results
