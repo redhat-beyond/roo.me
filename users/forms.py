@@ -56,7 +56,7 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name', 'birth_date',)
+        fields = ('email', 'first_name', 'last_name', 'birth_date', 'image_url',)
 
 
 class HobbyForm(forms.ModelForm):
