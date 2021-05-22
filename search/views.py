@@ -17,22 +17,30 @@ def search(request):
         filtered_apartments = None
         results = None
         if request.user.is_owner is True:
-            search_form = SearchForm(
-                instance=request.user.apartment,
-                initial={
-                    'min_rent': request.user.apartment.rent - 500,
-                    'max_rent': request.user.apartment.rent + 500}
-            )
+            if request.user.apartment.rent > 500:
+                search_form = SearchForm(
+                    instance=request.user.apartment,
+                    initial={
+                        'min_rent': request.user.apartment.rent - 500,
+                        'max_rent': request.user.apartment.rent + 500}
+                )
+            else:
+                search_form = SearchForm(
+                    instance=request.user.apartment,
+                    initial={
+                        'min_rent': 1,
+                        'max_rent': 500}
+                )
         elif request.user.is_seeker is True:
             search_form = SearchForm(instance=request.user.seeker)
         else:
             search_form = SearchForm({
                 'city': City.objects.get(cityName='Tel Aviv'),
                 'start_date': datetime.now(),
-                'min_rent': 1000,
+                'min_rent': 2000,
                 'max_rent': 3000,
-                'num_of_roomates': 3,
-                'num_of_rooms': 4
+                'num_of_roomates': 2,
+                'num_of_rooms': 3
             })
     context = {
         'searchForm': search_form,
