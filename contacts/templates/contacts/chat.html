@@ -8,11 +8,6 @@
 {% block content %}
 
 <div class="container">
-  {% if user.is_seeker %}
-    <h3 class=" text-center">Chat with {{chat_messages.first.connection.apartment.owner.first_name}}</h3>
-  {% else %}
-    <h3 class=" text-center">Chat with {{chat_messages.first.connection.seeker.base_user.first_name}}</h3>
-  {% endif %}
   <div class="messaging">
         <div class="inbox_msg">
           <div class="inbox_people">
@@ -45,6 +40,12 @@
         </div>
           <div class="mesgs">
             <div class="msg_history">
+              {% if user.is_seeker %}
+                <h3 class=" text-center">Chat with {{chat_messages.first.connection.apartment.owner.first_name}}</h3>
+              {% else %}
+                <h3 class=" text-center">Chat with {{chat_messages.first.connection.seeker.base_user.first_name}}</h3>
+              {% endif %}
+              
               {% for msg in chat_messages %}
               {% if msg.author == user %}
               <div class="outgoing_msg">
