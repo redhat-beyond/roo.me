@@ -1,81 +1,68 @@
-![small-white](https://user-images.githubusercontent.com/53123142/110364209-287bbd80-804c-11eb-91c3-a158b115ef27.png)
-
-roo.me is an open source web-application for easily finding roommates. 
-
-It works by showing users the best possible matches based on their profile information and preferences, with an easy 'yes or no' interface.
-
-roo.me is currently under development.
+<img src="https://user-images.githubusercontent.com/53123142/110364209-287bbd80-804c-11eb-91c3-a158b115ef27.png" width="650">
 
 
-
-## Motivation
-
-Finding a roommate could be a long, tedious task. roo.me is here to make this task easy for you by matching roommates based on interests.
-
+# Description
+roo.me is an interactive and easy web-app for finding roommate apartments.  
+roo.me offers a search mechanism, an intelligent matching algorithm, live chat and more.
 
 
-## Features
+# Video
 
-The following features will be included:
-
-- Account creation & handling
-- Tweaking roommate preferences
-- Searching for roommates
-- Show matched roommates
+[Our demo video](https://www.youtube.com/watch?v=-eIH3g7JPhw&feature=youtu.be)
 
 
+# Motivation
 
-## How it Works
+The demand for living in major cities is high and expensive.  
+Most of the people in their early 20s and 30s, prefer to live with roommates.  
+People are wasting their time searching unsuccessfully for roommate apartments, going through several platforms.  
+Moreover, there's no perfect formula for choosing a good roommate.  
+In most cases, the roommates find themselves splitting up because of a mismatch.  
+  
+Finding great roommates to live with shouldn’t be that hard.
 
-1. Create an account
-2. Update your profile
-3. Add your roommate preferences
-4. Find the perfect roommate!
+
+# Features
+
+- Account management.
+- Search mechanism
+- Intelligent roommate matching.
+- Connecting between users.
+- Live chat.
 
 
+# Architecture
 
-## Framework
-
-Built with:
-
-- Django - web framework
-- Vagrant - development environment
-- Flake 8 - CI, coding style enforcement
+| Frontend      | Backennd      | Datebase      |
+| ------------- | ------------- | ------------- |
+| HTML          | Python        | SQLite        |
+| CSS           | Django        |  
+| JavaScript    | Vagrant       |
+| Bootstarp     |
 
 
 
-## Contributing
+# Installation
 
-Right now, there is not much to contribute as roo.me is under development. But contributing in the future will be greatly appriciated! Here is how you can contribute in the future:
-
-- Add issues experienced with the application
-- Send us a feature request in the [issues section](https://github.com/beyond-io/roo.me/issues)
-- Fix issues from the [issues section](https://github.com/beyond-io/roo.me/issues)
-- Maintain documentation
-
-Be sure to set up a development environment before contributing to roo.me. For more information, check out our [CONTRIBUTING.md](https://github.com/beyond-io/roo.me/blob/main/CONTRIBUTING.md) file.
-
-### Getting Started
-
-In order to quickly set up a development environment, the following must be installed on your machine:
-
-- [Vagrant](https://www.vagrantup.com/)
-- [VirtualBox](https://www.virtualbox.org/)/[VMWare](https://www.vmware.com/) hypervisor
-
-Once installed, clone this project to your local machine, navigate to the project directory in terminal/cmd and type `vagrant up`. A development environment will automatically be set up for you.
+1. Install [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/)/[VMWare](https://www.vmware.com/) hypervisor.
+2. Clone [roo.me](https://github.com/beyond-io/roo.me) repository.
+   ```sh
+   https://github.com/beyond-io/roo.me.git
+   ```
+3. Open any terminal and navigate to the project directory.
+4. Run the `vagrant up` command.
+5. Use any browser and navigate to - `localhost:8080`.
 
 
+# Start now
 
-## Contributors
+1. Create an account.
+2. Set your preferences and hobbies.
+3. Search for roommates.
+4. Connect and chat.
+5. The perfect match.
 
-- Tamir Houri
-- Amit Aharoni
-- Daniel Malky
-- Nadav Suliman
-- Micha Levy
+# The Team
 
-
-
-## License
-
-MIT ©. For more information, check out [LICENSE](https://github.com/beyond-io/roo.me/blob/main/LICENSE).
+<a href="https://github.com/beyond-io/roo.me/graphs/contributors">
+<img src="https://user-images.githubusercontent.com/58184521/119696345-c0bd5d80-be57-11eb-9cbd-f62f9c419817.png" width="650" /></a>
